@@ -96,10 +96,6 @@ h2, h3, h4, h5 {
     font-size: 24px;
 }
 
-#follow-button, #edit-button:hover {
-    background-color: var(--gray);
-}
-
 /* posts */
 #posts {
     border: 1px solid black;
@@ -109,11 +105,17 @@ h2, h3, h4, h5 {
 .post {
     border: 1px solid gray;
     margin: 20px;
+    padding: 0 10px;
 }
 
 .post p {
     color: var(--black);
     padding: 10px;
+}
+
+.post-info {
+    display: flex;
+    justify-content: space-between;
 }
 
 footer {
