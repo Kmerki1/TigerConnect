@@ -105,6 +105,10 @@ h2, h3, h4, h5 {
     font-size: 24px;
 }
 
+#edit-button:hover {
+    background-color: var(--gray);
+}
+
 /* posts */
 #posts {
     border: 1px solid black;
