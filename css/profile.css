@@ -97,7 +97,7 @@ h2, h3, h4, h5 {
     margin-left: auto;
 }
 
-#follow-button, #edit-button {
+#follow-button, #settings-button {
     background-color: var(--gold);
     color: var(--black);
     border: none;
@@ -105,8 +105,8 @@ h2, h3, h4, h5 {
     font-size: 24px;
 }
 
-#edit-button:hover {
-    background-color: var(--gray);
+#follow-button, #settings-button:active {
+    background-color: gray;
 }
 
 /* posts */

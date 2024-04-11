@@ -135,3 +135,7 @@ document.addEventListener("DOMContentLoaded", function () {
   showPosts();
   handleFollowButtonClick();
 });
+
+function toSettings() {
+  window.location.href = "/TigerConnect Project/MasterSettings.html";
+}
