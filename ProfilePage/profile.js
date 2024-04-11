@@ -1,4 +1,62 @@
+// Consider a json object such as:
+/**
+ * {
+  "tweet_id": "1234567890123456789",
+  "author": {
+    "user_id": "9876543210987654321",
+    "username": "example_user",
+    "display_name": "John Doe",
+    "verified": false,
+    "followers_count": 1000,
+    "following_count": 500
+  },
+  "content": "This is an example tweet!",
+  "created_at": "2024-04-09T12:00:00Z",
+  "retweet_count": 10,
+  "favorite_count": 20,
+  "hashtags": ["example", "tweet"],
+  "mentions": ["user1", "user2"],
+  "urls": ["https://example.com"],
+  "reply_to_tweet_id": "9876543210987654321",
+  "reply_to_user_id": "1234567890123456789",
+  "is_reply": true
+}
+
+ */
+
+
 document.addEventListener("DOMContentLoaded", function () {
+  function authorInformation() {
+    const author =  {
+      "user_id": "12345",
+      "profile_pic": "/img/profile_pic.jpg",
+      "username": "example_username",
+      "display_name": "Jane Doe",
+      "bio": "I am a bio...",
+      "follower_count": 1000,
+      "following_count": 150
+    }
+
+    const profilePic = document.querySelector("#profile-header img");
+    profilePic.src = author.profile_pic;
+    profilePic.alt = "Profile Picture";
+
+    const profileNAme = document.getElementById("profile-name");
+    profileNAme.textContent = author.display_name;
+
+    const username = document.getElementById("username");
+    username.textcontent = "@" + author.username;
+
+    const bio = document.getElementById("bio");
+    bio.textContent =  author.bio;
+
+    const followInfo = document.getElementById("follow-info");
+    followInfo.children[0].textContent = "Following: " + author.following_count;
+    followInfo.children[1].textContent = "Followers: " + author.follower_count
+
+  }
+
+
   function showPosts() {
     const postsData = [
       {
@@ -73,6 +131,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  authorInformation();
   showPosts();
   handleFollowButtonClick();
 });
