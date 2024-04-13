@@ -25,6 +25,7 @@ body {
 header {
     background-color: var(--black);
     padding: 20px;
+    border-bottom: 1rem solid var(--gray);
 }
 
 h1 {
@@ -150,7 +151,7 @@ h2 {
 }
 
 .chat-input input {
-    flex: 1;
+    width: 100%;
     padding: 10px;
     border: none;
     border-radius: 5px;
