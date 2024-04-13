@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../css/groupchat.css">
 </head>
 <body>
+
 <header>
     <h1>TigerConnect</h1>
     <nav>
@@ -19,41 +20,18 @@
 </header>
 
 <main>
-    <div class="chat-header">
-        <img src="https://via.placeholder.com/50" alt="Group Avatar">
-        <h2>Web Programming 400</h2>
-    </div>
-    <div class="chat-messages">
-        <div class="message">
-            <img src="https://via.placeholder.com/40" alt="User Avatar">
-            <div class="message-content">
-                <h4>Kyle</h4>
-                <p class="message__text" >We think profile page might be more than the other pages so emma is gonna help you with that one</p>
-            </div>
-        </div>
-        <div class="message">
-            <img src="https://via.placeholder.com/40" alt="User Avatar">
-            <div class="message-content">
-                <h4>Kevin</h4>
-                <p  class="message__text">sounds good</p>
-            </div>
-        </div>
-        <div class="message">
-            <img src="https://via.placeholder.com/40" alt="User Avatar">
-            <div class="message-content">
-                <h4>Victor</h4>
-                <p class="message__text you">how do you center a div again?</p>
-            </div>
-        </div>
-    </div>
-    <div class="chat-input">
-        <input type="text" placeholder="Type your message...">
-        <button class="btn">Send</button>
+    <div id="chat-box">
     </div>
 </main>
 
 <footer>
     <p>&copy; 2024 TigerConnect. All rights reserved.</p>
 </footer>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="chat-box.js" type="text/babel"></script>
+
 </body>
 </html>
