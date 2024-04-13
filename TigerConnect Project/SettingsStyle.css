@@ -1,5 +1,6 @@
 body
 {
+  display: flex;
   margin: 20px;
   font-family: Arial, sans-serif;
 }
@@ -31,3 +32,13 @@ input
 {
   margin-top: 10px;
 }
+
+#left-side {
+  width: 30%; 
+  padding: 10px; 
+  background-color: gold;
+}
+#right-side {
+  width: 70%; 
+  padding: 10px;
+} 
