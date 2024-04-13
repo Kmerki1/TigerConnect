@@ -1,6 +1,6 @@
 <!DOCTYPE html>
     <html lang = "en">
-        <link rel="stylesheet" type="text/css" href="/css/signup.css"/>
+        <link rel="stylesheet" type="text/css" href="../css/signup.css"/>
         <head>
             <meta charset = "utf-8">
             <meta name="author" content="Kyle Merkins">
@@ -18,15 +18,14 @@
                 var email = document.forms["input"]["Email"].value;
                 var pass1 = document.forms["input"]["Password"].value;
                 var pass2 = document.forms["input"]["VerPass"].value;
-                var ref = document.forms["input"]["Referral"].value;
                 let nameLength = false;
                 let containsSpec = false;
                 
                 if(name.length <6){
-                    alert("Username must be at least 6 characters long")
+                    alert("Username must be at least 6 characters long.")
                     return false
                 }else if(name.length >24){
-                    alert("Username must be no more than 24 characters long")
+                    alert("Username must be no more than 24 characters long.")
                     return false
                 }
                 
@@ -35,20 +34,21 @@
                     return false; 
                 }
                 if(pass1.length <8){
-                    alert("Password must be at least 8 characters");
+                    alert("Password must be at least 8 characters.");
                     return false; 
                 }
-                if(!email.includes(".towson.edu")){
+                if(!email.includes("towson.edu")){
+                    alert("Must use a valid TU email.");
                     return false;
                 }
 
-                for (var i = 0; i < str.length; i++) {
+                for (var i = 0; i < pass1.length; i++) {
                     if (specialChars.indexOf(pass1[i]) !== -1) {
                     containsSpec = true;
                     }
                 }
                 if(!containsSpec){
-                    alert("password has no special characters");
+                    alert("password has no special characters.");
                     return false;
                 }
     
@@ -86,7 +86,7 @@
                 <div class="col-2">
                     <h1>Sign Up</h1>
                     <div class="signUpMenu">
-                        <form onsubmit="return verInputs" action="index.html" method="get">
+                        <form name ="input" onsubmit="return verInputs()" action="../ProfilePage/own_profile.html" method="get">
                             
                             <p class= "Labels">Username</p>
                             
