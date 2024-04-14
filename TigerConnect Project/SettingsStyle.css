@@ -1,12 +1,12 @@
-#master-settings-body {
-  body
-  {
+
+  #master-body {
     display: flex;
-    margin: 20px;
+    margin: 15px;
     font-family: Arial, sans-serif;
+    color: gold;
+    
   }
-  .main-header
-  {
+  .main-header {
     background-color: #f0f0f0; 
     color: #000000; 
     font-family: Arial, sans-serif; 
@@ -17,8 +17,7 @@
     font-weight: normal;
     margin-bottom: 0px;
   }
-  .sub-header
-  {
+  .sub-header {
     background-color: #f0f0f0; 
     color: #000000; 
     font-family: Arial, sans-serif; 
@@ -29,57 +28,19 @@
     font-weight: normal;
     margin-bottom: 0px;
   }
-  input
-  {
+  input {
     margin-top: 10px;
   }
 
   #left-side {
-    width: 30%; 
+    width: 40%; 
     padding: 10px; 
     background-color: gold;
+    color: black;
   }
+
   #right-side {
-    width: 70%; 
+    width: 60%; 
     padding: 10px;
+    background-color: black;
   } 
-}
-
-#preferences-body, #privacy-and-security-body {
-
-  body
-  {
-    display: flex;
-    margin: 20px;
-    font-family: Arial, sans-serif;
-  }
-  .main-header
-  {
-    background-color: #f0f0f0; 
-    color: #000000; 
-    font-family: Arial, sans-serif; 
-    padding: 5px 10px;
-    border: 1px solid #b0b0b0;
-    border-radius: 10px;
-    font-size: 45px;
-    font-weight: normal;
-    margin-bottom: 0px;
-  }
-  .sub-header
-  {
-    background-color: #f0f0f0; 
-    color: #000000; 
-    font-family: Arial, sans-serif; 
-    padding: 5px 10px;
-    border: 1px solid #b0b0b0;
-    border-radius: 10px;
-    font-size: 30px;
-    font-weight: normal;
-    margin-bottom: 0px;
-  }
-  input
-  {
-    margin-top: 10px;
-  }
-
-}
