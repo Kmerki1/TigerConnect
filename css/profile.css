@@ -105,10 +105,6 @@ h2, h3, h4, h5 {
     font-size: 24px;
 }
 
-#follow-button, #settings-button:active {
-    background-color: gray;
-}
-
 /* posts */
 #posts {
     border: 1px solid black;
