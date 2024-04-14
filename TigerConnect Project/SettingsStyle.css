@@ -1,44 +1,85 @@
-body
-{
-  display: flex;
-  margin: 20px;
-  font-family: Arial, sans-serif;
-}
-.main-header
-{
-  background-color: #f0f0f0; 
-  color: #000000; 
-  font-family: Arial, sans-serif; 
-  padding: 5px 10px;
-  border: 1px solid #b0b0b0;
-  border-radius: 10px;
-  font-size: 45px;
-  font-weight: normal;
-  margin-bottom: 0px;
-}
-.sub-header
-{
-  background-color: #f0f0f0; 
-  color: #000000; 
-  font-family: Arial, sans-serif; 
-  padding: 5px 10px;
-  border: 1px solid #b0b0b0;
-  border-radius: 10px;
-  font-size: 30px;
-  font-weight: normal;
-  margin-bottom: 0px;
-}
-input
-{
-  margin-top: 10px;
+#master-settings-body {
+  body
+  {
+    display: flex;
+    margin: 20px;
+    font-family: Arial, sans-serif;
+  }
+  .main-header
+  {
+    background-color: #f0f0f0; 
+    color: #000000; 
+    font-family: Arial, sans-serif; 
+    padding: 5px 10px;
+    border: 1px solid #b0b0b0;
+    border-radius: 10px;
+    font-size: 45px;
+    font-weight: normal;
+    margin-bottom: 0px;
+  }
+  .sub-header
+  {
+    background-color: #f0f0f0; 
+    color: #000000; 
+    font-family: Arial, sans-serif; 
+    padding: 5px 10px;
+    border: 1px solid #b0b0b0;
+    border-radius: 10px;
+    font-size: 30px;
+    font-weight: normal;
+    margin-bottom: 0px;
+  }
+  input
+  {
+    margin-top: 10px;
+  }
+
+  #left-side {
+    width: 30%; 
+    padding: 10px; 
+    background-color: gold;
+  }
+  #right-side {
+    width: 70%; 
+    padding: 10px;
+  } 
 }
 
-#left-side {
-  width: 30%; 
-  padding: 10px; 
-  background-color: gold;
+#preferences-body, #privacy-and-security-body {
+
+  body
+  {
+    display: flex;
+    margin: 20px;
+    font-family: Arial, sans-serif;
+  }
+  .main-header
+  {
+    background-color: #f0f0f0; 
+    color: #000000; 
+    font-family: Arial, sans-serif; 
+    padding: 5px 10px;
+    border: 1px solid #b0b0b0;
+    border-radius: 10px;
+    font-size: 45px;
+    font-weight: normal;
+    margin-bottom: 0px;
+  }
+  .sub-header
+  {
+    background-color: #f0f0f0; 
+    color: #000000; 
+    font-family: Arial, sans-serif; 
+    padding: 5px 10px;
+    border: 1px solid #b0b0b0;
+    border-radius: 10px;
+    font-size: 30px;
+    font-weight: normal;
+    margin-bottom: 0px;
+  }
+  input
+  {
+    margin-top: 10px;
+  }
+
 }
-#right-side {
-  width: 70%; 
-  padding: 10px;
-} 
