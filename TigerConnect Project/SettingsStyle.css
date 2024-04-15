@@ -6,6 +6,13 @@
     color: gold;
     
   }
+
+#subpage-body
+{
+	margin: 15px;
+	font-family: Arial, sans-serif;
+}
+
   .main-header {
     background-color: #f0f0f0; 
     color: #000000; 
@@ -44,3 +51,28 @@
     padding: 10px;
     background-color: black;
   } 
+
+ultra-condensed
+{
+	list-style-type: none;
+	padding: 0;
+}
+
+li
+{
+	margin-bottom: 5px;
+}
+
+ul li:last-child
+{
+	margin-bottom: 0;
+}
+
+#emailDefault
+{
+	margin-top: 20px;
+}
+
+#emailDefault li
+{
+	margin-bottom: 5px;
