@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TigerConnect/Chat</title>
+    <link rel="stylesheet" href="dm.css">
+</head>
+
+<body>
+    <header>
+        <div class="nav-container">
+            <h1>TigerConnect</h1>
+            <nav>
+                <ul>
+                    <a href="home.html">Home</a>
+                    <a href="profile.html">Profile</a>
+                    <a href="groupchats.html">Group Chats</a>
+                    <a href="MasterSettings.html">Settings</a>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <h2>Kyle</h2>
+        <div class="message-container">
+            <div class="message received">
+                <p class="user-name">Kyle</p>
+                <p class="message-content">Hey, how's the project going?</p>
+            </div>
+            <div class="message sent">
+                <p class="message-content">It's going well, making good progress!</p>
+            </div>
+            <div class="message received">
+                <p class="user-name">Kyle</p>
+                <p class="message-content">Great to hear. Need help with anything?</p>
+            </div>
+            <div class="message sent">
+                <p class="message-content">Not right now, thanks for asking!</p>
+            </div>
+            <div class="new messages" id="newmessages">
+                <!-- New typed messages will go here -->
+            </div>
+        </div>
+    </main>
+
+    <div class="send-message">
+        <input type="text" placeholder="Type your message..." id="messageInput">
+        <button id="sendButton">Send</button>
+    </div>
+    <footer>
+        © 2024 TigerConnect. All rights reserved.
+    </footer>
+    <script src="chat.js"></script>
+</body>
+
+</html>
