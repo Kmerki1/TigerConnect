@@ -26,16 +26,44 @@
 
 
 document.addEventListener("DOMContentLoaded", function () {
+  const author =  {
+    "user_id": "12345",
+    "profile_pic": "/img/profile_pic.jpg",
+    "username": "example_username",
+    "display_name": "Jane Doe",
+    "bio": "I am a bio...",
+    "follower_count": 1000,
+    "following_count": 150
+  }
+
+  const postsData = [
+    {
+      "id": 1,
+      "content": "This is my first post",
+      "time": "4/9/2024 4:28pm",
+      "likes": 10,
+    },
+    {
+      "id": 2,
+      "content": "This is my second post",
+      "time": "4/10/2024 7:17am",
+      "likes": 7,
+    },
+    {
+      "id": 3,
+      "content": "This is my third post",
+      "time": "4/11/2024 2:09am",
+      "likes": 12,
+    },
+    {
+      "id": 4,
+      "content": "This is my fourth post",
+      "time": "4/12/2024 1:47pm",
+      "likes": 23,
+    },
+  ];
+
   function authorInformation() {
-    const author =  {
-      "user_id": "12345",
-      "profile_pic": "/img/profile_pic.jpg",
-      "username": "example_username",
-      "display_name": "Jane Doe",
-      "bio": "I am a bio...",
-      "follower_count": 1000,
-      "following_count": 150
-    }
 
     const profilePic = document.querySelector("#profile-header img");
     profilePic.src = author.profile_pic;
@@ -58,32 +86,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   function showPosts() {
-    const postsData = [
-      {
-        "id": 1,
-        "content": "This is my first post",
-        "time": "4/9/2024 4:28pm",
-        "likes": 10,
-      },
-      {
-        "id": 2,
-        "content": "This is my second post",
-        "time": "4/10/2024 7:17am",
-        "likes": 7,
-      },
-      {
-        "id": 3,
-        "content": "This is my third post",
-        "time": "4/11/2024 2:09am",
-        "likes": 12,
-      },
-      {
-        "id": 4,
-        "content": "This is my fourth post",
-        "time": "4/12/2024 1:47pm",
-        "likes": 23,
-      },
-    ];
 
     const postsContainer = document.getElementById("posts");
 
@@ -91,7 +93,9 @@ document.addEventListener("DOMContentLoaded", function () {
         const postElement = document.createElement("div");
         postElement.classList.add("post");
         postElement.innerHTML =
-        `<p class="post-content">${postText.content}</p>
+        `<h4 class="post-author">${author.display_name}</h4>
+        <h5 class="post-username">@${author.username}</h5>
+        <p class="post-content">${postText.content}</p>
         <div class="post-info">
          <p class="post-time">${postText.time}</p>
          <p class="post-likes">Likes: ${postText.likes}</p>
