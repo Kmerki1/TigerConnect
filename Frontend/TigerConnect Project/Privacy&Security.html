@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <link rel="stylesheet" href="SettingsStyle.css">
+    <script = src="SettingsFunctionality.js"></script>
+  </head>
+  <body id="privacy-and-security-body">
+    <h1 class="main-header">Privacy & Security</h1>
+    <hr>
+	We promise to keep your sensitive information safe and secure with our patented "We Don't Care" method! I didn't have time to program any actual logic behind these settings, so for all intents and purposes, we didn't care enough to actually record it!
+    <h2 class="sub-header">Username</h2>
+    <hr> 
+	Adjust your username in the event you forgot, or just to fit how you feel.<br>
+    <form method="post" onsubmit="return changeUsername()">
+      <input type="text" id="newUsername" placeholder="Change Username"><br>
+	  <input type="text" id="confirmUsername" placeholder="Confirm Username"><br><br>
+      <button type="submit">Submit</button>
+    </form>
+    <h2 class="sub-header">Password</h2>
+    <hr> 
+	This is the password to your whole account! By default, this should be your password to your school account. Make sure it's both complex and memorable, and remember to keep it secret, keep it safe!<br>
+    <form method="post" onsubmit="return changePassword()">
+      <input type="password" id="oldPassword" placeholder="Enter Old Password"><br>
+      <input type="password" id="newPassword" placeholder="Enter New Password"><br>
+      <input type="password" id="confirmPassword" placeholder="Confrim New Password"><br><br>
+      <button type="submit">Submit</button>
+    </form>
+	<h2 class="sub-header">Email</h2>
+    <hr> 
+	By default, your school email is your main email, but if you want multiple recovery emails, adjust it here.<br>
+	<form id="emailForm">
+		<input type="email" id="newEmail" placeholder="Add Email Address">
+        <button type="button" id="addEmail">Add Email</button>
+		<ul><li>jdoe1@students.towson.edu (Towson Email)</li></ul>
+		<ul id="emailList">
+        </ul>
+        <button type="submit" id="removeEmail">Remove Selected Emails</button>
+    </form>
+	<h2 class="sub-header">Phone Number</h2>
+    <hr> 
+	Add a recovery phone number so that we can text you if you have trouble with your password.<br>
+	<form id="phoneForm">
+        <input type="tel" id="newPhone" placeholder="Enter Phone Number">
+        <button type="button" id="addPhone">Add Phone Number</button>
+        <ul id="phoneList">
+        </ul>
+        <button type="submit" id="removePhone">Remove Selected Numbers</button>
+    </form>
+	<h2 class="sub-header">Birthday & Age</h2>
+    <hr> 
+	All students and faculty are required to confirm they're legal adults before joining TigerText.<br>
+	<label for="birthdate">Select your birthdate:</label>
+	<select id="birthMonth" class="spinner">
+		<option value="1">January</option>
+		<option value="2">February</option>
+		<option value="3">March</option>
+		<option value="4">April</option>
+		<option value="5">May</option>
+		<option value="6">June</option>
+		<option value="7">July</option>
+		<option value="8">August</option>
+		<option value="9">September</option>
+		<option value="10">October</option>
+		<option value="11">November</option>
+		<option value="12">December</option>
+	</select>
+	<select id="birthDay" class="spinner">
+		<option value="1">1</option>
+		<option value="2">2</option>
+		<option value="3">3</option>
+		<option value="4">4</option>
+		<option value="5">5</option>
+		<option value="6">6</option>
+		<option value="7">7</option>
+		<option value="8">8</option>
+		<option value="9">9</option>
+		<option value="10">10</option>
+		<option value="11">11</option>
+		<option value="12">12</option>
+		<option value="13">13</option>
+		<option value="14">14</option>
+		<option value="15">15</option>
+		<option value="16">16</option>
+		<option value="17">17</option>
+		<option value="18">18</option>
+		<option value="19">19</option>
+		<option value="20">20</option>
+		<option value="21">21</option>
+		<option value="22">22</option>
+		<option value="23">23</option>
+		<option value="24">24</option>
+		<option value="25">25</option>
+		<option value="26">26</option>
+		<option value="27">27</option>
+		<option value="28">28</option>
+		<option value="29">29</option>
+		<option value="30">30</option>
+		<option value="31">31</option>
+	</select>	
+	<select id="birthYear" class="spinner"></select><br>
+	<span id="ageDisplay"></span><br>
+	<input type="checkbox" id="showAgeCheckbox" checked>
+	<label for="showAgeCheckbox">Show age</label><br><br>
+	<button id="submitBtn">Submit</button>
+	<!--This isn't working quite right. I'll get back to it.-->
+	<h2 class="sub-header">Blacklist</h2>
+    <hr> 
+	It's important to report harassing and offensive behavior, but if you'd like to filter others out yourself, you can block them from seeing or messaging you.<br>
+	>Insert large text box or way to change lists on the fly.<br><br>
+    <button onclick="window.location.href='MasterSettings.html'">&lt;&lt;Back to Settings&lt;&lt;</button>
+  </body>
+</html>
