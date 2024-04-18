@@ -5,11 +5,11 @@ function Settings() {
     const navigate = useNavigate();
 
     const handlePrivacySecurityClick = () => {
-        navigate('/settings/privacy-security');
+        navigate('./privacy-security');
     };
 
     const handlePreferencesClick = () => {
-        navigate('/settings/preferences');
+        navigate('./preferences');
     };
 
     return (
