@@ -1,0 +1,21 @@
+.direct-messages {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.dm-list {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.dm-list a {
+    display: block;
+    margin-bottom: 5px;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.dm-list a:hover {
+    text-decoration: underline;
+}
