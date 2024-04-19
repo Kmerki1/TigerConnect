@@ -1,15 +1,15 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import Home from './components/Home';
-import Profile from './components/Profile';
-import GroupChats from './components/GroupChats';
-import GroupChat from './components/GroupChat.jsx';
-import Login from './components/Login';
-import Signup from './components/Signup';
-import ForgotPassword from './components/ForgotPassword';
-import Settings from './components/Settings';
-import DirectMessages from "./components/DirectMessages.jsx";
+import Home from './components/home/Home';
+import Profile from './components/profile/Profile';
+import GroupChats from './components/chat/GroupChats';
+import GroupChat from './components/chat/GroupChat.jsx';
+import DirectMessages from "./components/chat/DirectMessages.jsx";
+import Login from './components/authentication/Login';
+import Signup from './components/authentication/Signup';
+import ForgotPassword from './components/authentication/ForgotPassword';
+import Settings from './components/settings/Settings';
 
 function App() {
     return (

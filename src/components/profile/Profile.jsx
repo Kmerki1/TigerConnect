@@ -16,16 +16,34 @@ function Profile() {
 
     const postsData = [
         {
-            id: 1,
-            content: 'This is my first post',
-            time: '4/9/2024 4:28pm',
-            likes: 10,
+            "id": 1,
+            "content": "This is my first post",
+            "time": "4/9/2024 4:28pm",
+            "likes": 10,
         },
-        // ...
+        {
+            "id": 2,
+            "content": "This is my second post",
+            "time": "4/10/2024 7:17am",
+            "likes": 7,
+        },
+        {
+            "id": 3,
+            "content": "This is my third post",
+            "time": "4/11/2024 2:09am",
+            "likes": 12,
+        },
+        {
+            "id": 4,
+            "content": "This is my fourth post",
+            "time": "4/12/2024 1:47pm",
+            "likes": 23,
+        },
     ];
 
+
     const handleFollowButtonClick = () => {
-        // Perform follow logic here
+
     };
 
     const toSettings = () => {

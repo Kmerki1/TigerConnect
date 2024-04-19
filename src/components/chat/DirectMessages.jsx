@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import ChatBox from './ChatBox';
-import '../styles/direct-messages.css';
+import '../../styles/direct-messages.css';
 
 function DirectMessages() {
     const directMessages = [

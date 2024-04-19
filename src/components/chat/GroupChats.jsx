@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '../styles/group-chats.css';
+import '../../styles/group-chats.css';
 
 function GroupChats() {
     return (
