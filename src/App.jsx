@@ -10,6 +10,8 @@ import Login from './components/authentication/Login';
 import Signup from './components/authentication/Signup';
 import ForgotPassword from './components/authentication/ForgotPassword';
 import Settings from './components/settings/Settings';
+import PrivacyAndSecurity from "./components/settings/Privacy&Security.jsx";
+import Preferences from "./components/settings/Preferences.jsx";
 
 function App() {
     return (
@@ -27,6 +29,8 @@ function App() {
                         <Route path="/signup" element={<Signup/>}/>
                         <Route path="/forgot-password" element={<ForgotPassword/>}/>
                         <Route path="/settings" element={<Settings/>}/>
+                        <Route path="/settings/privacy-security" element={<PrivacyAndSecurity/>}/>
+                        <Route path="/settings/preferences" element={<Preferences/>}/>
                     </Routes>
                 </div>
             <Footer/>
