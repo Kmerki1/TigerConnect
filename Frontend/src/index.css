@@ -21,8 +21,15 @@
   --white: #FFFFFF;
   --gray: #DDDDDD;
 }
+
+#root {
+  display: flex;
+}
+
 .app  {
   min-height: 100vh;
+  width: 800px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   background-color: var(--black);
@@ -55,7 +62,6 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
   flex-direction: column;
   place-items: center;
   min-width: 320px;
