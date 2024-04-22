@@ -1,0 +1,9 @@
+.group-chat-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.group-chat-item > img {
+    border-radius: 0.8rem;
+}
