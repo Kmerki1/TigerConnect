@@ -36,12 +36,18 @@ function Home() {
         },
     ];
     return (
-        <div>
+        <div className="home-container">
             <div id="posts">
+                <div id="create-post">
+                    <input type="text" placeholder="What should I post?" />
+                    <button id="post-button">Post</button>
+                </div>
                 {postsData.map((post) => (
                     <div className="post" key={post.id}>
-                        <h4 className="post-author">{post.author}</h4>
-                        <h5 className="post-username">@{post.username}</h5>
+                        <div className="author-info">
+                            <h4 className="post-author">{post.author}</h4>
+                            <h5 className="post-username">@{post.username}</h5>
+                        </div>
                         <p className="post-content">{post.content}</p>
                         <div className="post-info">
                             <p className="post-time">{post.time}</p>
@@ -49,6 +55,9 @@ function Home() {
                         </div>
                     </div>
                 ))}
+            </div>
+            <div id="sidebar">
+                <h3>Sidebar</h3>
             </div>
         </div>
     );
