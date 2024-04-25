@@ -28,7 +28,6 @@ html, body, #root {
 }
 
 .app  {
-  /* min-height: 100vh; */
   display: flex;
   flex-direction: column;
   background-color: var(--black);
@@ -53,10 +52,11 @@ html, body, #root {
 #create-post {
   height: 40px;
   display: flex;
+  justify-content: space-between;
 }
 
 #create-post input {
-  width: 75%;
+  width: 85%;
 }
 
 #create-post #post-button {
@@ -88,6 +88,16 @@ html, body, #root {
   color: #696767;
   padding-left: 10px;
   padding-top: 2px;
+}
+
+@media screen and (max-width: 800px) {
+  #create-post input {
+    width: 75%;
+  }
+
+  #create-post #post-button {
+    margin-left: 20px;
+  }
 }
 
 .app header {
