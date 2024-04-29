@@ -1,5 +1,7 @@
 .post-section {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    background-color: #1a1a1a;
+    border-radius: 1rem;
+    padding: 1rem;
 }

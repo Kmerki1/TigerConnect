@@ -2,6 +2,7 @@ import React from 'react';
 import "../Post.jsx"
 import Post from "../Post.jsx";
 import "../../styles/home.css"
+import Separator from "../Separator.jsx";
 
 function Home() {
     const postsData = [
@@ -38,20 +39,26 @@ function Home() {
             "likes": 23,
         },
     ];
+
+
     return (
         <div>
             <div id="posts" className="post-section">
-                {postsData.map((post) => (
-                    <Post
-                        key={post.id}
-                        id={post.id}
-                        name={post.author}
-                        tag={post.username}
-                        content={post.content}
-                        date={post.time}
-                        likes={post.likes}
-                    />
+                {postsData.map((post, index) => (
+                    <div>
+                        <Post
+                            key={post.id}
+                            id={post.id}
+                            name={post.author}
+                            tag={post.username}
+                            content={post.content}
+                            date={post.time}
+                            likes={post.likes}
+                        />
+                        {index < postsData.length - 1 && <Separator/>}
+                    </div>
                 ))}
+
             </div>
         </div>
     );
