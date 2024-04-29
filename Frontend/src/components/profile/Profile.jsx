@@ -1,6 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../styles/profile.css';
+import { YourPost } from "../Post.jsx";
+import Separator from "../Separator.jsx";
 
 function Profile() {
     const navigate = useNavigate();
@@ -80,15 +82,18 @@ function Profile() {
 
 
             <div className='posts'>
-                {postsData.map((post) => (
-                    <div className="post" key={post.id}>
-                        <h4 className="post-author">{author.display_name}</h4>
-                        <h5 className="post-username">@{author.username}</h5>
-                        <p className="post-content">{post.content}</p>
-                        <div className="post-info">
-                            <p className="post-time">{post.time}</p>
-                            <p className="post-likes">Likes: {post.likes}</p>
-                        </div>
+                {postsData.map((post, index) => (
+                    <div>
+                        <YourPost
+                            key={post.id}
+                            id={post.id}
+                            name={post.author}
+                            tag={post.username}
+                            content={post.content}
+                            date={post.time}
+                            likes={post.likes}
+                        />
+                        {index < postsData.length - 1 && <Separator/>}
                     </div>
                 ))}
             </div>

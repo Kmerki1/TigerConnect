@@ -1,6 +1,6 @@
 import React from 'react';
 import "../Post.jsx"
-import Post from "../Post.jsx";
+import { Post } from "../Post.jsx";
 import "../../styles/home.css"
 import Separator from "../Separator.jsx";
 

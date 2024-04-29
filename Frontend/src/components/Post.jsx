@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { IconContext } from "react-icons"
 
-export default function Post({id, name, tag, content, date, likes}) {
+function Post({id, name, tag, content, date, likes}) {
     return (
         <div className="post">
             <div className="post-header">
@@ -31,3 +31,24 @@ export default function Post({id, name, tag, content, date, likes}) {
         </div>
     )
 }
+
+function YourPost({id, name, tag, content, date, likes}) {
+    return (
+        <div className="post">
+            <div className="post-content">
+                <p>{content}</p>
+            </div>
+            <div className="post-footer">
+                <span className="post-date">{date}</span>
+                <div className="post-likes">
+                    <IconContext.Provider value={{style: {fontSize: '25px', color: " #FFBB00"}}}>
+                        <FaRegHeart/>
+                        <span className="likes">{likes}</span>
+                    </IconContext.Provider>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+export {Post, YourPost};
