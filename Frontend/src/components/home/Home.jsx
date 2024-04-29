@@ -1,6 +1,7 @@
 import React from 'react';
 import "../Post.jsx"
 import Post from "../Post.jsx";
+import "../../styles/home.css"
 
 function Home() {
     const postsData = [
@@ -39,7 +40,7 @@ function Home() {
     ];
     return (
         <div>
-            <div id="posts">
+            <div id="posts" className="post-section">
                 {postsData.map((post) => (
                     <Post
                         key={post.id}

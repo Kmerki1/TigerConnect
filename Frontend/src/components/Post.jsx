@@ -18,8 +18,8 @@ export default function Post({id, name, tag, content, date, likes}) {
                 <span className="post-date">{date}</span>
                 <div className="post-likes">
                     <IconContext.Provider value={{style: {fontSize: '30px', color: " #FFBB00"}}}>
-                            <FaRegHeart/>
-                            <span className="likes">{likes}</span>
+                        <span className="likes">{likes}</span>
+                        <FaRegHeart/>
                     </IconContext.Provider>
                 </div>
             </div>
