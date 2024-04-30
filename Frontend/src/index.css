@@ -84,10 +84,18 @@ html, body, #root {
   display: flex;
 }
 
+ .post .post-author {
+  margin-bottom: 0;
+}
+
 .post .post-username {
   color: #696767;
-  padding-left: 10px;
-  padding-top: 2px;
+  margin-top: 2px;
+}
+
+.post .post-info {
+  display: flex;
+  justify-content: space-between;
 }
 
 @media screen and (max-width: 800px) {
@@ -98,6 +106,50 @@ html, body, #root {
   #create-post #post-button {
     margin-left: 20px;
   }
+}
+
+#profile-container {
+  width: 100%;
+}
+
+
+#profile-header {
+  display: flex;
+  width: 100%;
+}
+
+#profile-pic {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+}
+
+#info {
+  width: 75%;
+  padding-left: 5%;
+  padding-right: 15%;
+}
+
+#profile-names {
+  display: flex;
+}
+
+#username {
+  padding-left: 10%;
+  padding-top: 3px;
+  color: rgb(127, 127, 127)
+}
+
+#bio {
+  color: rgb(127, 127, 127)
+}
+
+#follow-info {
+  display: flex;
+}
+
+#followers {
+  padding-left: 10%;
 }
 
 .app header {

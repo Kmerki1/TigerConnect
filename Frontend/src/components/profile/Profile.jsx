@@ -6,7 +6,7 @@ function Profile() {
 
     const author = {
         user_id: '12345',
-        profile_pic: '/img/profile_pic.jpg',
+        profile_pic: 'Frontend/public/img/profile_pic.jpg',
         username: 'example_username',
         display_name: 'Jane Doe',
         bio: 'I am a bio...',
@@ -51,16 +51,18 @@ function Profile() {
     };
 
     return (
-        <div>
+        <div id="profile-container">
             <div id="profile-header">
-                <img src={author.profile_pic} alt="profile picture" />
+                <img id="profile-pic" src={author.profile_pic} alt="profile picture" />
                 <div id="info">
-                    <h2 id="profile-name">{author.display_name}</h2>
-                    <h3 id="username">@{author.username}</h3>
+                    <div id="profile-names">
+                        <h2 id="profile-name">{author.display_name}</h2>
+                        <h3 id="username">@{author.username}</h3>
+                    </div>
                     <h3 id="bio">{author.bio}</h3>
                     <div id="follow-info">
-                        <h3>Following: {author.following_count}</h3>
-                        <h3>Followers: {author.follower_count}</h3>
+                        <h3 id="following">Following: {author.following_count}</h3>
+                        <h3 id="followers">Followers: {author.follower_count}</h3>
                     </div>
                 </div>
                 <div id="button-div">
@@ -82,9 +84,9 @@ function Profile() {
                     </div>
                 ))}
             </div>
-            <button id="follow-button" onClick={handleFollowButtonClick}>
+            {/* <button id="follow-button" onClick={handleFollowButtonClick}>
                 Follow
-            </button>
+            </button> */}
         </div>
     );
 }
