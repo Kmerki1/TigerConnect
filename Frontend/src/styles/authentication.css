@@ -1,0 +1,30 @@
+form {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+}
+
+form input {
+    height: 38px;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 0.3rem;
+    margin-top: 0.1rem;
+    margin-bottom: 1.5rem;
+}
+
+form input:not([type='submit']) {
+    text-indent: 1rem;
+}
+
+input[type='submit'] {
+    margin: 0 auto;
+    width: 50%;
+    background-color: #6c5a21;
+    cursor: pointer;
+}
+
+input[type='submit']:hover {
+    background-color: #55471c;
+}
+

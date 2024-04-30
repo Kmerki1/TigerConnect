@@ -1,4 +1,5 @@
 import React from 'react';
+import "../../styles/authentication.css"
 
 function ForgotPassword() {
     const handleSubmit = (event) => {
@@ -7,21 +8,13 @@ function ForgotPassword() {
     };
 
     return (
-        <div className="forgot_password_page">
-            <h1 style={{ textAlign: 'center' }}>Forgot Password</h1>
-            <p style={{ textAlign: 'center' }}>
-                Please enter your email address to reset your password
-            </p>
+        <div className="container">
+            <h2>Forgot Password</h2>
+            <p>Please enter your email address to reset your password</p>
             <form id="forgot_password_form" onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="email" style={{ textAlign: 'center' }}>
-                        Towson Email:
-                    </label>
-                    <input type="email" id="towson_email" name="Towson Email" required />
-                </div>
-                <button type="submit" className="submit_button">
-                    Reset Password
-                </button>
+                <label htmlFor="towson_email">Towson Email</label>
+                <input type="email" id="towson_email" name="Towson Email" required />
+                <input type="submit" id="submit" name="submit"/>
             </form>
         </div>
     );
