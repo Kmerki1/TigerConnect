@@ -1,3 +1,7 @@
+.group-chat-container {
+    width: 100%;
+}
+
 .group-chat-item {
     display: flex;
     align-items: center;

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../../styles/group-chats.css';
+import Separator from "../Separator.jsx";
 
 const groupChatData = [
     {
@@ -66,21 +67,27 @@ const groupChatData = [
 ];
 
 
-const GroupChat = (data) => {
+const GroupChat = (data, index) => {
     return (
-        <Link to={data.path} className="group-chat-item">
-            <img src={data.avatarUrl} alt="Group Avatar" />
-            <div className="group-chat-info">
-                <h3>{data.name}</h3>
-            </div>
-        </Link>
+        <div className="group-chat-container" key={index}>
+            <Link to={data.path} className="group-chat-item">
+                <img src={data.avatarUrl} alt="Group Avatar" />
+                <div className="group-chat-info">
+                    <h3>{data.name}</h3>
+                </div>
+            </Link>
+            {index < groupChatData.length - 1 && <Separator/>}
+        </div>
+
     )
 }
 
 function GroupChats() {
 
     return (
-        groupChatData.map(data => GroupChat(data))
+        <div className="container">
+            {groupChatData.map((data, index) => GroupChat(data, index))}
+        </div>
     )
 }
 
