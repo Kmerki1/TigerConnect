@@ -45,9 +45,8 @@ function Home() {
         <div>
             <div id="posts" className="post-section">
                 {postsData.map((post, index) => (
-                    <div>
+                    <div key={post.id}>
                         <Post
-                            key={post.id}
                             id={post.id}
                             name={post.author}
                             tag={post.username}
