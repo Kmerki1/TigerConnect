@@ -21,7 +21,7 @@ function Login() {
                     <p className="Labels">Password</p>
                     <input type="password" id="Password" name="Password" required />
                     <br />
-                    <input type="submit" id="submit" name="submit" />
+                    <input type="submit" id="submit" name="submit" value="Submit" />
                     <br />
                     <p>
                         Don't have an account? <a href="/signup">Sign Up</a>

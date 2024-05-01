@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import '../../styles/signup.css';
 
 function Signup() {
     const navigate = useNavigate();
@@ -7,7 +8,7 @@ function Signup() {
     const handleSubmit = (event) => {
         event.preventDefault();
         // Perform signup logic here
-        navigate('/profile');
+        navigate('/home');
     };
 
     return (
@@ -27,7 +28,7 @@ function Signup() {
                     <p className="Labels">Verify Password</p>
                     <input type="password" id="VerPass" name="VerPass" required />
                     <br />
-                    <input type="submit" id="submit" name="submit" />
+                    <input type="submit" id="submit" name="submit" value="Submit" />
                     <br />
                     <p>
                         Already have an account? <a href="/login">Log in</a>
