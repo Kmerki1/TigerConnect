@@ -1,0 +1,37 @@
+:root {
+    --black: #242424;
+    --black-real: #000000;
+    --gold: #FFBB00;
+    --old-gold: #CC9900;
+    --graphite: #3C3C3C;
+    --graphite-dark: #222;
+    --white: #FFFFFF;
+    --gray: #DDDDDD;
+}
+
+#chats-container {
+    width: 90%;
+}
+
+#chats-container h2 {
+    margin-top: 0;
+}
+
+.group-chat-list {
+    margin: 0;
+}
+
+.group-chat-item {
+    display: flex;
+    margin: 10px 0;
+    padding: 10px;
+    border: 3px solid var(--graphite);
+}
+
+.group-chat-info {
+    margin: 0 20px;
+}
+
+.group-chat-info h3 {
+    margin: 0;
+}

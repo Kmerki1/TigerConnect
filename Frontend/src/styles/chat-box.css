@@ -18,9 +18,15 @@
 }
 
 .chat-header {
+    display: flex;
     padding: 10px;
     background-color: var(--black);
     border-bottom: 1px solid;
+    padding-top: 0;
+}
+
+.chat-header h2 {
+    margin: 5px 20px;
 }
 
 .chat-messages {

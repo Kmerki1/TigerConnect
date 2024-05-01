@@ -4,7 +4,7 @@ import '../../styles/group-chats.css';
 
 function GroupChats() {
     return (
-        <div>
+        <div id="chats-container">
             <h2>Group Chats</h2>
             <div className="group-chat-list">
                 <Link to="/chat/web-programming-400" className="group-chat-item">
