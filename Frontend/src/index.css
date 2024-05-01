@@ -74,14 +74,11 @@ html, body, #root {
   padding: 0 100px;
 }
 
+
 .post {
   border: 3px solid var(--graphite);
   padding: 0 20px;
   margin: 20px 0;
-}
-
-.post .author-info {
-  display: flex;
 }
 
  .post .post-author {
@@ -96,6 +93,22 @@ html, body, #root {
 .post .post-info {
   display: flex;
   justify-content: space-between;
+}
+
+#posts-container {
+  display: flex;
+}
+
+#posts {
+  flex: 1;
+}
+
+#extra-column {
+  flex: 0 0 30%;
+  border: 3px solid var(--graphite);
+  margin: 20px;
+  display: flex;
+  justify-content: center;
 }
 
 @media screen and (max-width: 800px) {
@@ -130,18 +143,18 @@ html, body, #root {
   padding-right: 15%;
 }
 
-#profile-names {
-  display: flex;
+#profile-name {
+  margin: 0;
 }
 
 #username {
-  padding-left: 10%;
-  padding-top: 3px;
-  color: rgb(127, 127, 127)
+  color: rgb(127, 127, 127);
+  font-size: 16px;
+  margin: 0;
 }
 
 #bio {
-  color: rgb(127, 127, 127)
+  color: rgb(127, 127, 127);
 }
 
 #follow-info {
