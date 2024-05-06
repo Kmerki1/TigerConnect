@@ -17,6 +17,8 @@
 }
 
 #create-post #post-button {
+  display: inline-flex;
+  align-items: center;
   background-color: var(--gold);
   color: var(--dark-black);
   margin-left: 20px;
