@@ -18,6 +18,9 @@ function Header() {
                     <li>
                         <Link to="/group-chats">Group Chats</Link>
                     </li>
+                    <li>
+                        <Link to="/Login" >Log Out</Link>
+                    </li>
                 </ul>
             </nav>
         </header>

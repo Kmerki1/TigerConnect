@@ -1,4 +1,4 @@
-header {
+/* header {
     display: flex;
     flex-direction: column;
     padding: 0 2rem;
@@ -9,5 +9,30 @@ header {
 header ul {
     display: flex;
     gap: 1rem;
+} */
+
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+    background-color: #1a1a1a;
+}
+
+header h1 {
+    margin: 15px 0;
+}
+
+header ul {
+    display: flex;
+    gap: 6rem;
+    padding-left: 0;
+}
+
+header ul li {
+    font-size: 20px;
 }
 
