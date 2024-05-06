@@ -1,14 +1,47 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import "../../styles/authentication.css"
+import CONFIG from "../../../../config";
 
 function Signup() {
     const navigate = useNavigate();
 
-    const handleSubmit = (event) => {
+    const [formData, setFormData] = useState({
+        username: '',
+        email: '',
+        password: ''
+    });
+
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setFormData(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
+    };
+
+    const handleSubmit = async (event) => {
+
         event.preventDefault();
-        // Perform signup logic here
-        navigate('/profile');
+        try {
+            const response = await fetch(`${CONFIG.API_URL}/register`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData)
+            });
+
+            const data = await response.json();
+            if (response.status === 201) {
+                alert('Registration successful!');
+                navigate('/profile');
+            } else {
+                throw new Error(data.message || "Failed to register");
+            }
+        } catch (error) {
+            alert(error.message);
+        }
     };
 
     return (
@@ -16,13 +49,13 @@ function Signup() {
             <h2>Sign Up</h2>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="Username">Username</label>
-                <input type="text" id="Username" name="Username" required/>
+                <input onChange={handleChange} type="text" id="Username" name="username" required/>
                 <label htmlFor="Email">Email</label>
-                <input type="text" id="Email" name="Email" required/>
+                <input onChange={handleChange} type="text" id="Email" name="email" required/>
                 <label htmlFor="Password">Password</label>
-                <input type="password" id="Password" name="Password" required/>
+                <input onChange={handleChange} type="password" id="Password" name="password" required/>
                 <label htmlFor="VerPass">Verify Password</label>
-                <input type="password" id="VerPass" name="VerPass" required/>
+                <input type="password" id="VerPass" name="verpass" required/>
                 <input type="submit" id="submit" name="submit"/>
                 <p>
                     Already have an account? <a href="/login">Log In</a>
