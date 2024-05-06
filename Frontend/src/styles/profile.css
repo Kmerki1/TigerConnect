@@ -1,9 +1,48 @@
+:root {
+  --black: #242424;
+  --dark-black: #1a1a1a;
+  --gold: #FFBB00;
+  --old-gold: #CC9900;
+  --graphite: #3C3C3C;
+  --graphite-dark: #222;
+  --white: #FFFFFF;
+  --gray: #DDDDDD;
+}
+
 .profile-container {
+    width: 75%;
     display: flex;
+}
+
+@media screen and (max-width: 800px) {
+    .profile-container {
+        width: 100%;
+    }
 }
 
 .profile-side {
     width: 250px;
+    padding: 20px;
+}
+
+#profile-pic {
+    width: 75%;
+    height: 75%;
+    border-radius: 50%;
+}
+
+#profile-name {
+    margin-bottom: 0;
+}
+
+#bio {
+    font-weight: normal;
+}
+
+#username {
+    color: gray;
+    margin: 0;
+    font-size: 0.95rem;
 }
 
 .button-container {
