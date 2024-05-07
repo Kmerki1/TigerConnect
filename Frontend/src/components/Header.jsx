@@ -4,6 +4,13 @@ import '../styles/header.css';
 
 
 function Header() {
+    const handleLogout = () => {
+        const confirmLogout = window.confirm("Are you sure you want to log out?");
+        if (confirmLogout)  {
+            // Peform logout action here
+        }
+    };
+
     return (
         <header>
             <h1>TigerConnect</h1>
@@ -19,7 +26,7 @@ function Header() {
                         <Link to="/group-chats">Group Chats</Link>
                     </li>
                     <li>
-                        <Link to="/Login" >Log Out</Link>
+                        <Link to="/login">Log out</Link>
                     </li>
                 </ul>
             </nav>

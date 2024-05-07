@@ -18,25 +18,31 @@ function App() {
     return (
         <Router>
             <div className="app">
-                <Header/>
-                <div className="body-wrapper">
-                    <Routes>
-                        <Route path="/" element={<Home/>}/>
-                        <Route path="/profile" element={<Profile/>}/>
-                        <Route path="/dm/:id" element={<DirectMessages/>}/>
-                        <Route path="/group-chats" element={<GroupChats/>}/>
-                        <Route path="/chat/:id" element={<GroupChat/>}/>
-                        <Route path="/login" element={<Login/>}/>
-                        <Route path="/signup" element={<Signup/>}/>
-                        <Route path="/forgot-password" element={<ForgotPassword/>}/>
-                        <Route path="/settings" element={<Settings/>}/>
-                        <Route path="/settings/privacy-security" element={<PrivacyAndSecurity/>}/>
-                        <Route path="/settings/preferences" element={<Preferences/>}/>
-                    </Routes>
-                </div>
-            <Footer/>
+                <Routes>
+                    <Route path="/" element={<Layout><Home/></Layout>}/>
+                    <Route path="/profile" element={<Layout><Profile/></Layout>}/>
+                    <Route path="/dm/:id" element={<Layout><DirectMessages/></Layout>}/>
+                    <Route path="/group-chats" element={<Layout><GroupChats/></Layout>}/>
+                    <Route path="/chat/:id" element={<Layout><GroupChat/></Layout>}/>
+                    <Route path="/login" element={<Login/>}/>
+                    <Route path="/signup" element={<Signup/>}/>
+                    <Route path="/forgot-password" element={<ForgotPassword/>}/>
+                    <Route path="/settings" element={<Layout><Settings/></Layout>}/>
+                    <Route path="/settings/privacy-security" element={<Layout><PrivacyAndSecurity/></Layout>}/>
+                    <Route path="/settings/preferences" element={<Layout><Preferences/></Layout>}/>
+                </Routes>
             </div>
         </Router>
+    );
+}
+
+function Layout({ children }) {
+    return (
+        <>
+            <Header />
+            <div className="body-wrapper">{children}</div>
+            <Footer />
+        </>
     );
 }
 
