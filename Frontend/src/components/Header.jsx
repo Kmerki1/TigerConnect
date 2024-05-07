@@ -1,13 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate  } from 'react-router-dom';
 import '../styles/header.css';
 
 
 function Header() {
+    const navigate = useNavigate();
     const handleLogout = () => {
         const confirmLogout = window.confirm("Are you sure you want to log out?");
         if (confirmLogout)  {
-            // Peform logout action here
+            localStorage.removeItem('token');
+            navigate('/login');
         }
     };
 
@@ -26,7 +28,7 @@ function Header() {
                         <Link to="/group-chats">Group Chats</Link>
                     </li>
                     <li>
-                        <Link to="/login">Log out</Link>
+                        <a onClick={handleLogout}>Log out</a>
                     </li>
                 </ul>
             </nav>
