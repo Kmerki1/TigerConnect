@@ -4,6 +4,7 @@ import { Post } from "../Post.jsx";
 import "../../styles/home.css";
 import Separator from "../Separator.jsx";
 import {getToken} from "../../utils/auth";
+import CONFIG from "../../../../config";
 
 function Home() {
   const [postsData, setPostsData] = useState([]);
@@ -16,7 +17,7 @@ function Home() {
       return;
     }
 
-    const response = await fetch('http://localhost:5000/api/posts', {
+    const response = await fetch(`${CONFIG.API_URL}/posts`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -35,7 +36,7 @@ function Home() {
   useEffect(() => {
     const fetchPosts = async () => {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:5000/api/posts', {
+      const response = await fetch(`${CONFIG.API_URL}/posts`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -59,19 +60,7 @@ function Home() {
     setNewPost(event.target.value);
   };
 
-  const formatDate = (dateString) => {
-    if (!dateString) return 'Post doesn\'t have a date';
 
-    const options = {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      hour: 'numeric',
-      minute: '2-digit',
-      hour12: true
-    };
-    return new Date(dateString).toLocaleDateString('en-US', options);
-  };
 
 
   return (
@@ -89,7 +78,7 @@ function Home() {
                     name={post.displayName}
                     tag={post.username}
                     content={post.content}
-                    date={formatDate(post.time)}
+                    date={post.time}
                     likes={post.likes}
                 />
                 {index < postsData.length - 1 && <Separator />}

@@ -34,6 +34,12 @@
 }
 
 .icon-wrapper {
+    cursor: pointer;
+}
+
+.post-likes {
+    display: flex;
+    gap: 0.2rem;
 }
 
 .likes {

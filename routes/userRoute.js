@@ -5,6 +5,18 @@ const Post = require('../models/postModel');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
+// Authentication middleware
+const authenticate = (req, res, next) => {
+    try {
+        const token = req.headers.authorization.split(' ')[1];
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        req.user = decoded; // Add the decoded user to the request
+        next();
+    } catch (error) {
+        res.status(401).json({ message: 'Authentication failed' });
+    }
+};
+
 router.post('/register', async (req, res) => {
     try {
         const { displayName, username, email, password } = req.body;
@@ -43,11 +55,8 @@ router.post('/login', async (req, res) => {
     }
 });
 
-router.get('/posts', async (req, res) => {
+router.get('/posts', authenticate, async (req, res) => {
     try {
-        const token = req.headers.authorization.split(" ")[1];
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
         const posts = await Post.find()
                                         .populate('author', 'username displayName')
                                         .sort({ createdAt: -1 })
@@ -68,20 +77,45 @@ router.get('/posts', async (req, res) => {
     }
 });
 
-router.post('/posts', async (req, res) => {
+router.post('/posts', authenticate, async (req, res) => {
     try {
-        const token = req.headers.authorization.split(" ")[1];
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
         const newPost = new Post({
             content: req.body.content,
-            author: decoded.id,
+            author: req.user.id,
+            likes: [],
         });
 
         await newPost.save();
         res.status(201).json(newPost);
     } catch (error) {
         res.status(500).json({ message: "Error posting: " + error.message });
+    }
+});
+
+router.put('/like/:postId', authenticate, async (req, res) => {
+    const { postId } = req.params;
+    try {
+        const post = await Post.findById(postId);
+        if (!post) {
+            return res.status(404).send('Post not found');
+        }
+
+        const userIdIndex = post.likes.findIndex(userId => userId.toString() === req.user.id);
+
+        if (userIdIndex !== -1) {
+            // User has already liked the post, so remove the like
+            post.likes.splice(userIdIndex, 1);
+            await post.save();
+            res.json({ message: 'Like removed', totalLikes: post.likes.length });
+        } else {
+            // User has not liked the post, so add a new like
+            post.likes.push(req.user.id);
+            await post.save();
+            res.json({ message: 'Post liked successfully', totalLikes: post.likes.length });
+        }
+    } catch (error) {
+        res.status(500).json({ message: error.message });
     }
 });
 
