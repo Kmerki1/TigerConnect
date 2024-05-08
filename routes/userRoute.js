@@ -50,6 +50,7 @@ router.get('/posts', async (req, res) => {
 
         const posts = await Post.find()
                                         .populate('author', 'username displayName')
+                                        .sort({ createdAt: -1 })
                                         .exec();
 
         const postsWithUserDetails = posts.map(post => ({

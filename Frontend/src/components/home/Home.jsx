@@ -59,6 +59,19 @@ function Home() {
     setNewPost(event.target.value);
   };
 
+  const formatDate = (dateString) => {
+    if (!dateString) return 'Post doesn\'t have a date';
+
+    const options = {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true
+    };
+    return new Date(dateString).toLocaleDateString('en-US', options);
+  };
 
 
   return (
@@ -76,7 +89,7 @@ function Home() {
                     name={post.displayName}
                     tag={post.username}
                     content={post.content}
-                    date={post.time}
+                    date={formatDate(post.time)}
                     likes={post.likes}
                 />
                 {index < postsData.length - 1 && <Separator />}
