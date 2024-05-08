@@ -10,7 +10,8 @@ function Signup() {
         displayName: '',
         username: '',
         email: '',
-        password: ''
+        password: '',
+        verPass: '',
     });
 
     const handleChange = (event) => {
@@ -23,8 +24,12 @@ function Signup() {
     };
 
     const handleSubmit = async (event) => {
-
         event.preventDefault();
+        if (formData.password !== formData.verPass) {
+            alert("Passwords don't match");
+            return;
+        }
+
         try {
             const response = await fetch(`${CONFIG.API_URL}/register`, {
                 method: 'POST',
