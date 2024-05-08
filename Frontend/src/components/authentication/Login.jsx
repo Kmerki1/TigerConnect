@@ -51,7 +51,7 @@ function Login() {
                 <input onChange={handleChange} type="text" id="Email" name="email" required/>
                 <label htmlFor="Password">Password</label>
                 <input onChange={handleChange} type="password" id="Password" name="password" required/>
-                <input type="submit" id="submit" name="submit"/>
+                <input type="submit" id="submit" name="submit" value="Submit"/>
                 <p>
                     Don't have an account? <a href="/signup">Sign Up</a>
                 </p>

@@ -87,7 +87,7 @@ function Home() {
         </div>
       </div>
       <div className="sidebar">
-        <h3>Sidebar</h3>
+        <h3>Events</h3>
       </div>
     </div>
   );
