@@ -22,6 +22,10 @@
   --gray: #DDDDDD;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 #root {
   display: flex;
 }

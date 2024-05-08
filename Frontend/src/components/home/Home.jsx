@@ -62,13 +62,13 @@ function Home() {
 
 
   return (
-    <div id="home-container">
-      <div id="posts-container">
-        <div id="create-post">
+    <div className="home-container">
+      <div className="posts-container">
+        <div className="create-post">
           <input type="text" placeholder="What should I post?" value={newPost} onChange={handlePostChange} />
-          <button id="post-button" onClick={handlePostSubmit}>Post</button>
+          <button className="post-button" onClick={handlePostSubmit}>Post</button>
         </div>
-        <div id="posts" className="post-section">
+        <div className="post-section">
           {postsData.map((post, index) => (
               <div key={post.id}>
                 <Post
@@ -84,7 +84,7 @@ function Home() {
           ))}
         </div>
       </div>
-      <div id="sidebar">
+      <div className="sidebar">
         <h3>Sidebar</h3>
       </div>
     </div>

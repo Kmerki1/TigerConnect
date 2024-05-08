@@ -1,27 +1,33 @@
-#home-container {
+.home-container {
   display: flex;
   width: 100%;
   justify-content: center;
 }
 
-#create-post {
+.create-post {
   height: 40px;
   display: flex;
   justify-content: space-between;
   padding-bottom: 10px;
 }
 
-#create-post input {
-  width: 85%;
+.create-post input {
+  width: 100%;
   border-radius: 10px;
 }
 
-#create-post #post-button {
+.create-post .post-button {
   display: inline-flex;
   align-items: center;
   background-color: var(--gold);
   color: var(--dark-black);
   margin-left: 20px;
+}
+
+.posts-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
 .post-section {
@@ -30,14 +36,15 @@
   background-color: #1a1a1a;
   border-radius: 1rem;
   padding: 1rem;
+  width: 100%;
 }
 
-#sidebar {
+.sidebar {
   border: 1px solid var(--graphite);
   border-radius: 20px;
   margin: 0 20px;
 }
 
-#sidebar h3 {
+.sidebar h3 {
   padding: 0 100px;
 }
