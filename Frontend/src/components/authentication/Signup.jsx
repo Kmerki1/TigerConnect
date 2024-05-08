@@ -7,6 +7,7 @@ function Signup() {
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
+        displayName: '',
         username: '',
         email: '',
         password: ''
@@ -14,6 +15,7 @@ function Signup() {
 
     const handleChange = (event) => {
         const { name, value } = event.target;
+        console.log(name, " ", value)
         setFormData(prevState => ({
             ...prevState,
             [name]: value
@@ -48,15 +50,17 @@ function Signup() {
         <div className="container">
             <h2>Sign Up</h2>
             <form onSubmit={handleSubmit}>
-                <label htmlFor="Username">Username</label>
-                <input onChange={handleChange} type="text" id="Username" name="username" required/>
-                <label htmlFor="Email">Email</label>
-                <input onChange={handleChange} type="text" id="Email" name="email" required/>
-                <label htmlFor="Password">Password</label>
-                <input onChange={handleChange} type="password" id="Password" name="password" required/>
-                <label htmlFor="VerPass">Verify Password</label>
-                <input type="password" id="VerPass" name="verpass" required/>
-                <input type="submit" id="submit" name="submit"/>
+                <label htmlFor="displayName">Display Name</label>
+                <input onChange={handleChange} type="text"  name="displayName" required/>
+                <label htmlFor="username">Username</label>
+                <input onChange={handleChange} type="text" name="username" required/>
+                <label htmlFor="email">Email</label>
+                <input onChange={handleChange} type="text" name="email" required/>
+                <label htmlFor="password">Password</label>
+                <input onChange={handleChange} type="password" name="password" required/>
+                <label htmlFor="verPass">Verify Password</label>
+                <input type="password" name="verpass" required/>
+                <input type="submit" name="submit"/>
                 <p>
                     Already have an account? <a href="/login">Log In</a>
                 </p>
