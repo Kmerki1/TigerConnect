@@ -50,9 +50,12 @@
     gap: 1rem;
 }
 
-.posts {
-    width: 100%;
-    margin: 0 auto;
+.post-section {
     display: flex;
     flex-direction: column;
+    background-color: #1a1a1a;
+    border-radius: 1rem;
+    padding: 1rem;
+    width: 100%;
 }
+

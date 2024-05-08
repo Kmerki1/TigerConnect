@@ -79,7 +79,7 @@ function Profile() {
         </div>
       </div>
 
-      <div className="posts">
+      <div className="post-section">
         {postsData.map((post, index) => (
           <div>
             <YourPost
