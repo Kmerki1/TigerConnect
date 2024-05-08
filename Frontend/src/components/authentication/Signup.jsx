@@ -42,7 +42,7 @@ function Signup() {
             const data = await response.json();
             if (response.status === 201) {
                 alert('Registration successful!');
-                navigate('/login');
+                navigate('/home');
             } else {
                 throw new Error(data.message || "Failed to register");
             }
@@ -64,7 +64,7 @@ function Signup() {
                 <label htmlFor="password">Password</label>
                 <input onChange={handleChange} type="password" name="password" required/>
                 <label htmlFor="verPass">Verify Password</label>
-                <input type="password" name="verpass" required/>
+                <input onChange={handleChange} type="password" name="verPass" required/>
                 <input type="submit" name="submit" value="Submit"/>
                 <p>
                     Already have an account? <a href="/login">Log In</a>
