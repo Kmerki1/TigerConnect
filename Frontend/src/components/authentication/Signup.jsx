@@ -42,7 +42,7 @@ function Signup() {
             const data = await response.json();
             if (response.status === 201) {
                 alert('Registration successful!');
-                navigate('/home');
+                navigate('/login');
             } else {
                 throw new Error(data.message || "Failed to register");
             }
