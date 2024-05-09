@@ -75,6 +75,7 @@ function Home() {
               <div key={post.id}>
                 <Post
                     id={post.id}
+                    userId={post.userId}
                     name={post.displayName}
                     tag={post.username}
                     content={post.content}

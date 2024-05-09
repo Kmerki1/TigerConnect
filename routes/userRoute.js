@@ -58,15 +58,15 @@ router.post('/login', async (req, res) => {
 router.get('/posts', authenticate, async (req, res) => {
     try {
         const posts = await Post.find()
-                                        .populate('author', 'username displayName')
+                                        .populate('author', 'username displayName _id')
                                         .sort({ createdAt: -1 })
                                         .exec();
-
         const postsWithUserDetails = posts.map(post => ({
             id: post._id,
             content: post.content,
             time: post.createdAt,
             likes: post.likes,
+            userId: post.author._id,
             username: post.author.username,
             displayName: post.author.displayName
         }));

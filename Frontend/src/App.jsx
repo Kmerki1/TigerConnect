@@ -22,6 +22,7 @@ function App() {
                 <Routes>
                     <Route path="/" element={<PrivateRoute><Layout><Home/></Layout></PrivateRoute>}/>
                     <Route path="/profile" element={<PrivateRoute><Layout><Profile/></Layout></PrivateRoute>}/>
+                    <Route path="/profile/:id" element={<PrivateRoute><Layout><Profile/></Layout></PrivateRoute>}/>
                     <Route path="/dm/:id" element={<PrivateRoute><Layout><DirectMessages/></Layout></PrivateRoute>}/>
                     <Route path="/group-chats" element={<PrivateRoute><Layout><GroupChats/></Layout></PrivateRoute>}/>
                     <Route path="/chat/:id" element={<PrivateRoute><Layout><GroupChat/></Layout></PrivateRoute>}/>

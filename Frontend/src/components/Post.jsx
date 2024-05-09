@@ -24,7 +24,7 @@ const formatLikes = (likesArray) => {
     return likesArray.length;
 }
 
-function Post({id, name, tag, content, date, likes}) {
+function Post({id, userId, name, tag, content, date, likes}) {
     const currentUserID = getUserId();
 
     const isLiked = likes.includes(currentUserID);
@@ -56,7 +56,7 @@ function Post({id, name, tag, content, date, likes}) {
                 <div className="post__user-container">
                     <h3 className="post__display-name">{name}</h3>
                     {/* TODO: LINK TO ACTUAL USER'S PROFILE */}
-                    <Link to="/profile"><span className="post__username">@{tag}</span></Link>
+                    <Link to={`/profile/${userId}`}><span className="post__username">@{tag}</span></Link>
                 </div>
             </div>
             <div className="post-content">

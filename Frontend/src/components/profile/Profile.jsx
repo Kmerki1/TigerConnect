@@ -1,11 +1,24 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import "../../styles/profile.css";
 import { YourPost } from "../Post.jsx";
 import Separator from "../Separator.jsx";
+import { useParams } from 'react-router-dom'
+import { getUserId } from '../../utils/auth.js';
 
 function Profile() {
+  const { id } = useParams();
   const navigate = useNavigate();
+  const [currentUserId, setCurrentUserId] = useState(null);
+  useEffect(() => {
+    const fetchUserId = async () => {
+      const userId = await getUserId();
+      setCurrentUserId(userId);
+    };
+    fetchUserId();
+  }, []);
+
+  const isCurrentUser = id === currentUserId;
 
   const author = {
     user_id: "12345",
@@ -68,7 +81,8 @@ function Profile() {
           </div>
         </div>
 
-        {/*TODO: Hide if profile is not current user */}
+        {
+          isCurrentUser &&
         <div className="button-container">
           <button type="button" id="settings-button" onClick={toSettings}>
             Settings
@@ -77,13 +91,13 @@ function Profile() {
             Follow
           </button>
         </div>
+        }
       </div>
 
       <div className="post-section">
         {postsData.map((post, index) => (
-          <div>
+          <div key={post.id}>
             <YourPost
-              key={post.id}
               id={post.id}
               name={post.author}
               tag={post.username}
