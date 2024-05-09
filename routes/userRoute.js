@@ -57,10 +57,16 @@ router.post('/login', async (req, res) => {
 
 router.get('/posts', authenticate, async (req, res) => {
     try {
-        const posts = await Post.find()
-                                        .populate('author', 'username displayName _id')
-                                        .sort({ createdAt: -1 })
-                                        .exec();
+        const query = {};
+        if (req.query.userIds) {
+            const userIds = Array.isArray(req.query.userIds) ? req.query.userIds : [req.query.userIds];
+            query.author = { $in: userIds };
+        }
+        const posts = await Post.find(query)
+            .populate('author', 'username displayName _id')
+            .sort({ createdAt: -1 })
+            .exec();
+
         const postsWithUserDetails = posts.map(post => ({
             id: post._id,
             content: post.content,

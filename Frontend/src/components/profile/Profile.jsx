@@ -1,24 +1,46 @@
 import React, {useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import "../../styles/profile.css";
-import { YourPost } from "../Post.jsx";
+import {Post} from "../Post.jsx";
 import Separator from "../Separator.jsx";
 import { useParams } from 'react-router-dom'
-import { getUserId } from '../../utils/auth.js';
+import {getToken, getUserId} from '../../utils/auth.js';
+import CONFIG from "../../../../config";
 
 function Profile() {
-  const { id } = useParams();
+  const params = useParams();
+  const id = params.id || getUserId();
   const navigate = useNavigate();
-  const [currentUserId, setCurrentUserId] = useState(null);
-  useEffect(() => {
-    const fetchUserId = async () => {
-      const userId = await getUserId();
-      setCurrentUserId(userId);
-    };
-    fetchUserId();
-  }, []);
+  const currentUserId = getUserId();
+  const [postsData, setPostsData] = useState([]);
 
   const isCurrentUser = id === currentUserId;
+
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const token = getToken();
+        const response = await fetch(`${CONFIG.API_URL}/posts?userIds=${id}`, {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        const data = await response.json();
+        if (response.ok) {
+          setPostsData(data);
+        } else {
+          throw new Error(data.message);
+        }
+      } catch (error) {
+        console.error('Error fetching posts:', error);
+      }
+    };
+
+    fetchPosts();
+  }, []);
+
 
   const author = {
     user_id: "12345",
@@ -29,33 +51,6 @@ function Profile() {
     follower_count: 1000,
     following_count: 150,
   };
-
-  const postsData = [
-    {
-      id: 1,
-      content: "This is my first post",
-      time: "4/9/2024 4:28pm",
-      likes: 10,
-    },
-    {
-      id: 2,
-      content: "This is my second post",
-      time: "4/10/2024 7:17am",
-      likes: 7,
-    },
-    {
-      id: 3,
-      content: "This is my third post",
-      time: "4/11/2024 2:09am",
-      likes: 12,
-    },
-    {
-      id: 4,
-      content: "This is my fourth post",
-      time: "4/12/2024 1:47pm",
-      likes: 23,
-    },
-  ];
 
   const handleFollowButtonClick = () => {};
 
@@ -81,23 +76,21 @@ function Profile() {
           </div>
         </div>
 
-        {
-          isCurrentUser &&
+
         <div className="button-container">
-          <button type="button" id="settings-button" onClick={toSettings}>
-            Settings
-          </button>
-          <button id="follow-button" onClick={handleFollowButtonClick}>
-            Follow
-          </button>
+          {
+            isCurrentUser
+                ? <button type="button" id="settings-button" onClick={toSettings}>Settings</button>
+                : <button id="follow-button" onClick={handleFollowButtonClick}>Follow</button>
+          }
         </div>
-        }
+
       </div>
 
       <div className="post-section">
         {postsData.map((post, index) => (
-          <div key={post.id}>
-            <YourPost
+            <div key={post.id}>
+            <Post
               id={post.id}
               name={post.author}
               tag={post.username}
