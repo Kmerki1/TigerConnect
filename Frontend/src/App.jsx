@@ -13,23 +13,24 @@ import ForgotPassword from './components/authentication/ForgotPassword';
 import Settings from './components/settings/Settings';
 import PrivacyAndSecurity from "./components/settings/Privacy&Security.jsx";
 import Preferences from "./components/settings/Preferences.jsx";
+import PrivateRoute from "./PrivateRoute";
 
 function App() {
     return (
         <Router>
             <div className="app">
                 <Routes>
-                    <Route path="/" element={<Layout><Home/></Layout>}/>
-                    <Route path="/profile" element={<Layout><Profile/></Layout>}/>
-                    <Route path="/dm/:id" element={<Layout><DirectMessages/></Layout>}/>
-                    <Route path="/group-chats" element={<Layout><GroupChats/></Layout>}/>
-                    <Route path="/chat/:id" element={<Layout><GroupChat/></Layout>}/>
+                    <Route path="/" element={<PrivateRoute><Layout><Home/></Layout></PrivateRoute>}/>
+                    <Route path="/profile" element={<PrivateRoute><Layout><Profile/></Layout></PrivateRoute>}/>
+                    <Route path="/dm/:id" element={<PrivateRoute><Layout><DirectMessages/></Layout></PrivateRoute>}/>
+                    <Route path="/group-chats" element={<PrivateRoute><Layout><GroupChats/></Layout></PrivateRoute>}/>
+                    <Route path="/chat/:id" element={<PrivateRoute><Layout><GroupChat/></Layout></PrivateRoute>}/>
                     <Route path="/login" element={<Login/>}/>
                     <Route path="/signup" element={<Signup/>}/>
                     <Route path="/forgot-password" element={<ForgotPassword/>}/>
-                    <Route path="/settings" element={<Layout><Settings/></Layout>}/>
-                    <Route path="/settings/privacy-security" element={<Layout><PrivacyAndSecurity/></Layout>}/>
-                    <Route path="/settings/preferences" element={<Layout><Preferences/></Layout>}/>
+                    <Route path="/settings" element={<PrivateRoute><Layout><Settings/></Layout></PrivateRoute>}/>
+                    <Route path="/settings/privacy-security" element={<PrivateRoute><Layout><PrivacyAndSecurity/></Layout></PrivateRoute>}/>
+                    <Route path="/settings/preferences" element={<PrivateRoute><Layout><Preferences/></Layout></PrivateRoute>}/>
                 </Routes>
             </div>
         </Router>
