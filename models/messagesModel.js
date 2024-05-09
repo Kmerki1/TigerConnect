@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const messageSchema = new mongoose.Schema({
+    // Sender of the message has a display name and user name. 
     sender: {
         displayName: {type: String, required: true},
         userName: {type: String, required: true}
