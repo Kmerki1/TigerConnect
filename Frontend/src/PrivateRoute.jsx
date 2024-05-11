@@ -6,7 +6,7 @@ import {getUserId} from "./utils/auth";
 function PrivateRoute({ children }) {
     const [userId, setUserId] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
-
+    console.log(userId)
     useEffect(() => {
         const checkUser = async () => {
             const user = await getUserId();
