@@ -5,10 +5,11 @@ const userSchema = new mongoose.Schema({
     displayName: {type: String, required: true},
     username: { type: String, required: true, unique: true },
     email: { type: String, required: true, unique: true },
-    password: { type: String, required: true }, 
+    password: { type: String, required: true },
     fname: String, 
     lname: String, 
-    age: Number, 
+    age: Number,
+    followers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Users' }]
 },{ timestamps: true });
 
 //encrypt da password
