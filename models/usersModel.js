@@ -9,6 +9,8 @@ const userSchema = new mongoose.Schema({
     fname: String, 
     lname: String, 
     age: Number,
+    bio: { type: String, maxlength: 100 },
+    following: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Users' }],
     followers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Users' }]
 },{ timestamps: true });
 

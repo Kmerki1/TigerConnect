@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import "../styles/post.css"
 import { Link } from 'react-router-dom';
 import { FaRegHeart, FaHeart } from "react-icons/fa";
@@ -26,8 +26,9 @@ const formatLikes = (likesArray) => {
 
 function Post({id, userId, name, tag, content, date, likes}) {
     const currentUserID = getUserId();
-
     const isLiked = likes.includes(currentUserID);
+    const [liked, setLiked] = useState(isLiked);
+    const [animate, setAnimate] = useState(false);
 
     const handleLike = async () => {
         const token = getToken();
@@ -47,6 +48,11 @@ function Post({id, userId, name, tag, content, date, likes}) {
         if (!response.ok) {
             throw new Error(data.message || "Could not like the post");
         }
+        if (!liked) {
+            setAnimate(true);
+            setTimeout(() => setAnimate(false), 400);
+        }
+        setLiked(pre => !pre);
     }
 
     return (
@@ -66,8 +72,8 @@ function Post({id, userId, name, tag, content, date, likes}) {
                 <span className="post-date">{formatDate(date)}</span>
                 <div className="post-likes">
                     <IconContext.Provider value={{style: {fontSize: '25px', color: " #FFBB00"}}}>
-                        <div className='icon-wrapper' onClick={handleLike}>
-                            {isLiked ? <FaHeart/> : <FaRegHeart/>}
+                        <div className={`icon-wrapper ${animate ? 'icon-pop' : ''}`} onClick={handleLike}>
+                            {liked ? <FaHeart/> : <FaRegHeart/>}
                         </div>
                         <span className="likes">{formatLikes(likes)}</span>
                     </IconContext.Provider>

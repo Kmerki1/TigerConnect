@@ -50,3 +50,26 @@
     border-bottom: 1px solid #3C3C3C !important;
     margin: 1rem 0;
 }
+
+
+@keyframes pop {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.5);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.icon-wrapper {
+    display: inline-block;
+    cursor: pointer;
+    animation-fill-mode: forwards;
+}
+
+.icon-pop {
+    animation: pop 0.4s ease;
+}

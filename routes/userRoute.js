@@ -4,6 +4,7 @@ const User = require('../models/usersModel');
 const Post = require('../models/postModel');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const {startSession} = require("mongoose");
 
 // Authentication middleware
 const authenticate = (req, res, next) => {
@@ -55,6 +56,27 @@ router.post('/login', async (req, res) => {
     }
 });
 
+
+router.get('/users/:id', async (req, res) => {
+    const userId = req.params.id;
+
+    try {
+        const user = await User.findById(userId).select('-password');
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        res.json(user);
+
+    } catch (error) {
+        if (error.kind === 'ObjectId') {
+            return res.status(400).json({ message: 'Invalid user ID' });
+        }
+        res.status(500).json({ message: error.message });
+    }
+});
+
+
+
 router.get('/posts', authenticate, async (req, res) => {
     try {
         const query = {};
@@ -101,6 +123,7 @@ router.post('/posts', authenticate, async (req, res) => {
 
 router.put('/like/:postId', authenticate, async (req, res) => {
     const { postId } = req.params;
+    console.log(postId)
     try {
         const post = await Post.findById(postId);
         if (!post) {
@@ -108,7 +131,7 @@ router.put('/like/:postId', authenticate, async (req, res) => {
         }
 
         const userIdIndex = post.likes.findIndex(userId => userId.toString() === req.user.id);
-
+        console.log(userIdIndex)
         if (userIdIndex !== -1) {
             // User has already liked the post, so remove the like
             post.likes.splice(userIdIndex, 1);
@@ -124,6 +147,102 @@ router.put('/like/:postId', authenticate, async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
+
+
+router.post('/follow/:id', authenticate, async (req, res) => {
+    const targetUserId = req.params.id;
+    const currentUserId = req.user.id;
+
+    if (targetUserId === currentUserId) {
+        return res.status(400).json({ message: "You cannot follow yourself" });
+    }
+
+    const session = await startSession();
+    session.startTransaction();
+
+    try {
+        const targetUser = await User.findById(targetUserId).session(session);
+        const currentUser = await User.findById(currentUserId).session(session);
+
+        if (!targetUser || !currentUser) {
+            await session.abortTransaction();
+            session.endSession();
+            return res.status(404).json({ message: 'One or both users not found' });
+        }
+
+        // Check if already following
+        if (currentUser.following.includes(targetUserId)) {
+            await session.abortTransaction();
+            session.endSession();
+            return res.status(400).json({ message: 'Already following this user' });
+        }
+
+        // Add target user to current user's following list
+        currentUser.following.push(targetUserId);
+
+        // Add current user to target user's followers list
+        targetUser.followers.push(currentUserId);
+
+        await currentUser.save({ session });
+        await targetUser.save({ session });
+
+        await session.commitTransaction();
+        session.endSession();
+        res.json({ message: 'Followed successfully' });
+    } catch (error) {
+        await session.abortTransaction();
+        session.endSession();
+        res.status(500).json({ message: error.message });
+    }
+});
+router.post('/unfollow/:id', authenticate, async (req, res) => {
+    const targetUserId = req.params.id;
+    const currentUserId = req.user.id;
+
+    if (targetUserId === currentUserId) {
+        return res.status(400).json({ message: "You cannot unfollow yourself" });
+    }
+
+    const session = await startSession();
+    session.startTransaction();
+
+    try {
+        const targetUser = await User.findById(targetUserId).session(session);
+        const currentUser = await User.findById(currentUserId).session(session);
+
+        if (!targetUser || !currentUser) {
+            await session.abortTransaction();
+            session.endSession();
+            return res.status(404).json({ message: 'One or both users not found' });
+        }
+
+        // Check if actually following
+        if (!currentUser.following.includes(targetUserId)) {
+            await session.abortTransaction();
+            session.endSession();
+            return res.status(400).json({ message: 'Not following this user' });
+        }
+
+        // Remove target user from current user's following list
+        currentUser.following.pull(targetUserId);
+
+        // Remove current user from target user's followers list
+        targetUser.followers.pull(currentUserId);
+
+        await currentUser.save({ session });
+        await targetUser.save({ session });
+
+        await session.commitTransaction();
+        session.endSession();
+        res.json({ message: 'Unfollowed successfully' });
+    } catch (error) {
+        await session.abortTransaction();
+        session.endSession();
+        res.status(500).json({ message: error.message });
+    }
+});
+
+
 
 module.exports = router;
 

@@ -3,10 +3,12 @@ import "../Post.jsx";
 import { Post } from "../Post.jsx";
 import "../../styles/home.css";
 import Separator from "../Separator.jsx";
-import {getToken} from "../../utils/auth";
+import {getToken, getUserId} from "../../utils/auth";
 import CONFIG from "../../../../config";
 
 function Home() {
+  const id = getUserId();
+  const [userData, setUserData] = useState({});
   const [postsData, setPostsData] = useState([]);
   const [newPost, setNewPost] = useState("");
 
@@ -34,9 +36,34 @@ function Home() {
   };
 
   useEffect(() => {
-    const fetchPosts = async () => {
+    const fetchUser = async () => {
+      try {
+        const token = getToken();
+        const response = await fetch(`${CONFIG.API_URL}/users/${id}`, {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        const data = await response.json();
+        if (response.ok) {
+          setUserData(data);
+          return data.following;
+        } else {
+          throw new Error(data.message);
+        }
+      } catch (error) {
+        console.error('Error fetching posts:', error);
+      }
+    }
+
+    const fetchPosts = async (users) => {
+      console.log(id)
+      console.log(users)
+      if (!users) return
+
       const token = localStorage.getItem('token');
-      const response = await fetch(`${CONFIG.API_URL}/posts`, {
+      const response = await fetch(`${CONFIG.API_URL}/posts?userIds=${users}`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -52,8 +79,9 @@ function Home() {
       }
     };
 
-    fetchPosts();
-  }, [handlePostSubmit]);
+    fetchUser().then((following) => fetchPosts(following));
+  },[])
+
 
 
   const handlePostChange = (event) => {
