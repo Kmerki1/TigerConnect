@@ -2,6 +2,23 @@ const express = require('express');
 const router = express.Router(); 
 const message = require('../models/messagesModel'); 
 
+
+// Sending messages between users
+router.post('messages/send', async (req, res) =>{
+    
+    const newMessage = new message({
+        sender: req.body.sender, 
+        receiver: req.body.receiver, 
+        content: req.body.content
+    }); 
+
+    const saveMsg = await newMessage.save(); 
+
+    res.json(saveMsg); 
+    
+}); 
+
+
 // Get the messages between a sender and a receiver
 router.get('/messages', async (req, res) => {
     // receive the users that we are trying to get the messages for
@@ -21,4 +38,4 @@ router.get('/messages', async (req, res) => {
 }); 
 
 
-router 
+module.exports = router; 
