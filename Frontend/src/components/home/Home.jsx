@@ -11,6 +11,28 @@ function Home() {
   const [postsData, setPostsData] = useState([]);
   const [newPost, setNewPost] = useState("");
 
+  const fetchPosts = async () => {
+    try {
+      const token = getToken();
+      const response = await fetch(`${CONFIG.API_URL}/posts-home-feed`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.ok) {
+        const posts = await response.json();
+        setPostsData(posts);
+      } else {
+        // Handle errors or unauthorized access
+        console.error("Failed to fetch posts:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+    }
+  };
+
   const handlePostSubmit = async () => {
     const token = getToken();
 
@@ -25,6 +47,7 @@ function Home() {
 
     if (response.ok) {
       setNewPost(""); // Clear input after posting
+      fetchPosts();
     } else {
       alert("Failed to post!");
     }
@@ -51,24 +74,6 @@ function Home() {
         console.error('Error fetching posts:', error);
       }
     }
-
-    const fetchPosts = async () => {
-      const token = localStorage.getItem('token');
-      const response = await fetch(`${CONFIG.API_URL}/posts-home-feed`, {
-        method: 'GET',
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-
-      if (response.ok) {
-        const posts = await response.json();
-        setPostsData(posts);
-      } else {
-        // Handle errors or unauthorized access
-        console.error('Failed to fetch posts:', response.statusText);
-      }
-    };
 
     fetchUser();
     fetchPosts();
