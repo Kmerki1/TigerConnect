@@ -75,11 +75,78 @@ router.get('/users/:id', async (req, res) => {
     }
 });
 
+router.get('/get-replies/:id', authenticate, async (req, res) => {
+    const postId = req.params.id;
 
+    if (!postId) {
+        return res.status(400).send({ message: "Post ID must be provided" });
+    }
 
-router.get('/posts', authenticate, async (req, res) => {
     try {
-        const query = {};
+        const initialPost = await Post.findById(postId);
+        if (!initialPost) {
+            return res.status(404).send({ message: "Post not found" });
+        }
+
+        // If there are no replies, return an empty array
+        if (!initialPost.replies || initialPost.replies.length === 0) {
+            return res.json([]);
+        }
+
+        // Fetch all posts in the replies array
+        const posts = await Post.find({
+            '_id': { $in: initialPost.replies }
+        })
+            .populate('author', 'username displayName _id')
+            .sort({ createdAt: -1 })
+            .exec();
+
+        const postsWithUserDetails = posts.map(post => ({
+            id: post._id,
+            content: post.content,
+            time: post.createdAt,
+            likes: post.likes,
+            replies: post.replies,
+            userId: post.author._id,
+            username: post.author.username,
+            displayName: post.author.displayName
+        }));
+
+        res.json(postsWithUserDetails);
+    } catch (error) {
+        console.error("Error fetching posts: ", error);
+        res.status(500).send({ message: error.message });
+    }
+});
+
+
+router.get('/posts-home-feed', authenticate, async (req, res) => {
+    try {
+        const posts = await Post.find({ isReply: false })
+            .populate('author', 'username displayName _id')
+            .sort({ createdAt: -1 })
+            .exec();
+
+        const postsWithUserDetails = posts.map(post => ({
+            id: post._id,
+            content: post.content,
+            time: post.createdAt,
+            likes: post.likes,
+            replies: post.replies,
+            userId: post.author._id,
+            username: post.author.username,
+            displayName: post.author.displayName
+        }));
+
+        res.json(postsWithUserDetails);
+    } catch (error) {
+        res.status(500).json({ message: "Error retrieving posts: " + error.message });
+    }
+});
+
+router.get('/posts-by-user', authenticate, async (req, res) => {
+    try {
+        const query = {isReply: false};
         if (req.query.userIds) {
             const userIds = Array.isArray(req.query.userIds) ? req.query.userIds : [req.query.userIds];
             query.author = { $in: userIds };
@@ -112,12 +179,45 @@ router.post('/posts', authenticate, async (req, res) => {
             content: req.body.content,
             author: req.user.id,
             likes: [],
+            replies: [],
+            isReply: false,
         });
 
         await newPost.save();
         res.status(201).json(newPost);
     } catch (error) {
         res.status(500).json({ message: "Error posting: " + error.message });
+    }
+});
+
+router.post('/reply', authenticate, async (req, res) => {
+    const { content, rootPostId } = req.body;
+
+    if (!content || !rootPostId) {
+        return res.status(400).json({ message: "Missing required fields" });
+    }
+
+    try {
+        // Create the reply post
+        const replyPost = new Post({
+            content,
+            author: req.user.id,
+            likes: [],
+            replies: [],
+            isReply: true,
+        });
+        await replyPost.save();
+
+        // Find the root post and add the reply ID to the replies array
+        const rootPost = await Post.findById(rootPostId);
+
+        rootPost.replies.push(replyPost._id);
+        await rootPost.save();
+
+        res.status(201).json({ message: "Reply added successfully", replyPost });
+    } catch (error) {
+        console.error("Failed to create reply:", error);
+        res.status(500).json({ message: error.message });
     }
 });
 

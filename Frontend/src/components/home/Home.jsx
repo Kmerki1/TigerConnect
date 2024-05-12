@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
-import "../Post.jsx";
-import { Post } from "../Post.jsx";
+import { Post } from "../threads/Post.jsx";
 import "../../styles/home.css";
 import Separator from "../Separator.jsx";
 import {getToken, getUserId} from "../../utils/auth";
@@ -14,10 +13,6 @@ function Home() {
 
   const handlePostSubmit = async () => {
     const token = getToken();
-    if (!token) {
-      alert("You are not logged in!");
-      return;
-    }
 
     const response = await fetch(`${CONFIG.API_URL}/posts`, {
       method: 'POST',
@@ -57,13 +52,9 @@ function Home() {
       }
     }
 
-    const fetchPosts = async (users) => {
-      console.log(id)
-      console.log(users)
-      if (!users) return
-
+    const fetchPosts = async () => {
       const token = localStorage.getItem('token');
-      const response = await fetch(`${CONFIG.API_URL}/posts?userIds=${users}`, {
+      const response = await fetch(`${CONFIG.API_URL}/posts-home-feed`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -79,7 +70,8 @@ function Home() {
       }
     };
 
-    fetchUser().then((following) => fetchPosts(following));
+    fetchUser();
+    fetchPosts();
   },[])
 
 
@@ -109,6 +101,7 @@ function Home() {
                     content={post.content}
                     date={post.time}
                     likes={post.likes}
+                    replies={post.replies}
                 />
                 {index < postsData.length - 1 && <Separator />}
               </div>

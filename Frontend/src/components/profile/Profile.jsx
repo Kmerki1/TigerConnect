@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import "../../styles/profile.css";
-import {Post} from "../Post.jsx";
+import {Post} from "../threads/Post.jsx";
 import Separator from "../Separator.jsx";
 import { useParams } from 'react-router-dom'
 import {getToken, getUserId} from '../../utils/auth.js';
@@ -79,7 +79,7 @@ function Profile() {
     const fetchPosts = async () => {
       try {
         const token = getToken();
-        const response = await fetch(`${CONFIG.API_URL}/posts?userIds=${id}`, {
+        const response = await fetch(`${CONFIG.API_URL}/posts-by-user?userIds=${id}`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`
