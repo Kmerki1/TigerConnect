@@ -55,6 +55,12 @@
     margin: 1rem 0;
 }
 
+.separator-dark {
+    width: 100%;
+    border-bottom: 1px solid #1a1a1a !important;
+    margin: 1rem 0;
+}
+
 
 @keyframes pop {
     0% {

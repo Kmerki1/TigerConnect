@@ -3,6 +3,7 @@ import { Post } from './Post';
 import CONFIG from '../../../../config';
 import { getToken } from '../../utils/auth';
 import '../../styles/thread.css'
+import Separator from "../Separator";
 
 function ThreadModal({ initialPost }) {
     const [posts, setPosts] = useState([]);
@@ -70,35 +71,39 @@ function ThreadModal({ initialPost }) {
 console.log(initialPost)
     return (
         <div className="thread-container">
-
-
-            <Post
-                id={initialPost.id}
-                userId={initialPost.userId}
-                name={initialPost.name}
-                tag={initialPost.tag}
-                content={initialPost.content}
-                date={initialPost.date}
-                likes={initialPost.likes}
-                replies={initialPost.replies}
-            />
-            <div className="create-post">
+            <div className="initial-post pad">
+                <Post
+                    id={initialPost.id}
+                    userId={initialPost.userId}
+                    name={initialPost.name}
+                    tag={initialPost.tag}
+                    content={initialPost.content}
+                    date={initialPost.date}
+                    likes={initialPost.likes}
+                    replies={initialPost.replies}
+                />
+            </div>
+            <div className="create-post pad-input">
                 <input type="text" placeholder="What should I reply?" value={newReply} onChange={handleReplyChange}/>
                 <button className="post-button" onClick={handleReplySubmit}>Reply</button>
             </div>
-            {posts.map(post => {
+            {posts.map((post, index) => {
                 console.log(post)
                 return (
-                <Post key={post.id}
-                      id={post.id}
-                      userId={post.userId}
-                      name={post.displayName}
-                      tag={post.username}
-                      content={post.content}
-                      date={post.time}
-                      likes={post.likes}
-                      replies={post.replies}
-                />
+                    <div>
+                        <Post key={post.id}
+                              id={post.id}
+                              userId={post.userId}
+                              name={post.displayName}
+                              tag={post.username}
+                              content={post.content}
+                              date={post.time}
+                              likes={post.likes}
+                              replies={post.replies}
+                        />
+
+                        {index < posts.length - 1 && <Separator />}
+                    </div>
             )})}
         </div>
     );
