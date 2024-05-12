@@ -17,7 +17,8 @@ function Profile() {
     email: '',
     bio: '',
     following: [],
-    followers: []
+    followers: [],
+    profile_pic: ''
   });
   const currentUserId = getUserId();
   const id = params.id || getUserId();
@@ -106,11 +107,19 @@ function Profile() {
     navigate("/settings");
   };
 
+  const renderProfilePic = () => {
+    if (userData.profile_pic) {
+      return <img src={userData.profile_pic} alt="profile picture" id="profile-pic" />;
+    } else {
+      return <img src="https://placehold.co/45x45" alt="profile picture" id="profile-pic" />;
+    }
+  }
+
   return (
     <div className="profile-container">
       <div className="profile-side">
         <div>
-          <img src={userData.profile_pic} alt="profile picture" id="profile-pic" />
+          {renderProfilePic()}
           <div id="info">
             <div id="profile-names">
               <h2 id="profile-name">{userData.displayName}</h2>
