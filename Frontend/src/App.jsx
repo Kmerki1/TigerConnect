@@ -14,6 +14,7 @@ import Settings from './components/settings/Settings';
 import PrivacyAndSecurity from "./components/settings/Privacy&Security.jsx";
 import Preferences from "./components/settings/Preferences.jsx";
 import PrivateRoute from "./PrivateRoute";
+import Thread from "./components/threads/Thread";
 
 function App() {
     return (
@@ -21,6 +22,7 @@ function App() {
             <div className="app">
                 <Routes>
                     <Route path="/" element={<PrivateRoute><Layout><Home/></Layout></PrivateRoute>}/>
+                    <Route path="/thread/:id" element={<PrivateRoute><Layout><Thread/></Layout></PrivateRoute>}/>
                     <Route path="/profile" element={<PrivateRoute><Layout><Profile/></Layout></PrivateRoute>}/>
                     <Route path="/profile/:id" element={<PrivateRoute><Layout><Profile/></Layout></PrivateRoute>}/>
                     <Route path="/dm/:id" element={<PrivateRoute><Layout><DirectMessages/></Layout></PrivateRoute>}/>
