@@ -1,10 +1,14 @@
 import React, {useState} from 'react';
-import "../styles/post.css"
+import "../../styles/post.css"
 import { Link } from 'react-router-dom';
-import { FaRegHeart, FaHeart } from "react-icons/fa";
+import { FaRegHeart, FaHeart, FaRegComment } from "react-icons/fa";
 import { IconContext } from "react-icons"
-import CONFIG from "../../../config";
-import {getToken, getUserId} from "../utils/auth";
+import CONFIG from "../../../../config";
+import {getToken, getUserId} from "../../utils/auth";
+import { useNavigate } from "react-router-dom";
+import ThreadModal from "./Thread";
+import 'react-responsive-modal/styles.css';
+import { Modal } from 'react-responsive-modal';
 
 const formatDate = (dateString) => {
     if (!dateString) return 'Post doesn\'t have a date';
@@ -24,7 +28,12 @@ const formatLikes = (likesArray) => {
     return likesArray.length;
 }
 
-function Post({id, userId, name, tag, content, date, likes}) {
+const formatReplies = (repliesArray) => {
+    return repliesArray ? repliesArray.length : 0;
+}
+
+function Post({id, userId, name, tag, content, date, likes, replies}) {
+    const navigate = useNavigate();
     const currentUserID = getUserId();
     const isLiked = likes.includes(currentUserID);
     const [liked, setLiked] = useState(isLiked);
@@ -55,13 +64,21 @@ function Post({id, userId, name, tag, content, date, likes}) {
         setLiked(pre => !pre);
     }
 
+    const goToThread = () => {
+        navigate(`/thread/${id}`);
+    };
+
+    const [showThread, setShowThread] = useState(false);
+
+    const handleOpenThread = () => setShowThread(true);
+    const handleCloseThread = () => setShowThread(false);
+
     return (
         <div className="post">
             <div className="post-header">
                 <img className="post__avatar" src="https://placehold.co/45x45"/>
                 <div className="post__user-container">
                     <h3 className="post__display-name">{name}</h3>
-                    {/* TODO: LINK TO ACTUAL USER'S PROFILE */}
                     <Link to={`/profile/${userId}`}><span className="post__username">@{tag}</span></Link>
                 </div>
             </div>
@@ -70,36 +87,37 @@ function Post({id, userId, name, tag, content, date, likes}) {
             </div>
             <div className="post-footer">
                 <span className="post-date">{formatDate(date)}</span>
+
+
+                <Modal open={showThread} onClose={handleCloseThread} center>
+                    <ThreadModal initialPost={{id, userId, name, tag, content, date, likes}}/>
+                </Modal>
+
                 <div className="post-likes">
                     <IconContext.Provider value={{style: {fontSize: '25px', color: " #FFBB00"}}}>
-                        <div className={`icon-wrapper ${animate ? 'icon-pop' : ''}`} onClick={handleLike}>
-                            {liked ? <FaHeart/> : <FaRegHeart/>}
+                        <div className='widget-wrapper'>
+                            <div className={`icon-wrapper ${animate ? 'icon-pop' : ''}`} onClick={handleLike}>
+                                {liked ? <FaHeart/> : <FaRegHeart/>}
+                            </div>
+                            <span className="likes">{formatLikes(likes)}</span>
                         </div>
-                        <span className="likes">{formatLikes(likes)}</span>
                     </IconContext.Provider>
-                </div>
-            </div>
-        </div>
-    )
-}
 
-function YourPost({id, name, tag, content, date, likes}) {
-    return (
-        <div className="post">
-            <div className="post-content">
-                <p>{content}</p>
-            </div>
-            <div className="post-footer">
-                <span className="post-date">{date}</span>
-                <div className="post-likes">
                     <IconContext.Provider value={{style: {fontSize: '25px', color: " #FFBB00"}}}>
-                        <FaRegHeart/>
-                        <span className="likes">{likes}</span>
+
+                        <div className='widget-wrapper'>
+                            <div className="icon-wrapper" onClick={handleOpenThread}>
+                                <FaRegComment/>
+                            </div>
+                            <span className="likes">{formatReplies(replies)}</span>
+                        </div>
                     </IconContext.Provider>
                 </div>
             </div>
         </div>
-    )
+)
 }
 
-export {Post, YourPost};
+export {
+    Post
+};

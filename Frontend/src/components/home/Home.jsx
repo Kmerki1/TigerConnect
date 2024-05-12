@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
-import "../Post.jsx";
-import { Post } from "../Post.jsx";
+import { Post } from "../threads/Post.jsx";
 import "../../styles/home.css";
 import Separator from "../Separator.jsx";
 import {getToken, getUserId} from "../../utils/auth";
@@ -55,7 +54,7 @@ function Home() {
 
     const fetchPosts = async () => {
       const token = localStorage.getItem('token');
-      const response = await fetch(`${CONFIG.API_URL}/posts`, {
+      const response = await fetch(`${CONFIG.API_URL}/posts-home-feed`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -102,6 +101,7 @@ function Home() {
                     content={post.content}
                     date={post.time}
                     likes={post.likes}
+                    replies={post.replies}
                 />
                 {index < postsData.length - 1 && <Separator />}
               </div>
