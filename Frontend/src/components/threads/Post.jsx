@@ -90,7 +90,7 @@ function Post({id, userId, name, tag, content, date, likes, replies}) {
 
 
                 <Modal open={showThread} onClose={handleCloseThread} center>
-                    <ThreadModal initialPost={{id, userId, name, tag, content, date, likes}}/>
+                    <ThreadModal initialPost={{id, userId, name, tag, content, date, likes, replies}}/>
                 </Modal>
 
                 <div className="post-likes">

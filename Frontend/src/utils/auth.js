@@ -10,7 +10,6 @@ function getUserId() {
 
     try {
         const decoded = jwtDecode(token);
-        console.log("Token expires at:", new Date(decoded.exp * 1000));
         return decoded.exp * 1000 > Date.now() ? decoded.id : null;
     } catch (error) {
         console.error('Failed to decode token:', error);
