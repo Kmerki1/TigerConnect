@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
+import "../../styles/group-chats.css";
 
 function GroupChat() {
     const [messages, setMessages] = useState([
@@ -37,7 +39,7 @@ function GroupChat() {
         <div id="chat-box">
             <div className="chat-header">
                 <img src="https://via.placeholder.com/50" alt="Group Avatar" />
-                <h2>Web Programming 400</h2>
+                <h2 className="groupchat-name">{name}</h2>
             </div>
             <div className="chat-messages">
                 {messages.map((comment, ind) => (
