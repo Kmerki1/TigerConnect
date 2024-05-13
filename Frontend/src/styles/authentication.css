@@ -1,3 +1,10 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
 form {
     display: flex;
     flex-direction: column;
@@ -28,3 +35,6 @@ input[type='submit']:hover {
     background-color: #55471c;
 }
 
+p {
+    text-align: center;
+}
