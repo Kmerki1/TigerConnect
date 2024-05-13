@@ -18,7 +18,7 @@ router.post('/group/:chatName/addMessages', async (req, res) => {
         message: req.body,message
     }); 
 
-    const newMsg = await message.save(); 
+    const newMsg = await msg.save();
 
 }); 
 
@@ -39,7 +39,7 @@ router.get('/group/chatName/getMessages', async (req, res) =>{
         { chatName: req.params.chatName }
     ).populate('sender')
 
-    res.json(message);  
+    res.json(msg);
 }); 
 
 

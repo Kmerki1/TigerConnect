@@ -3,9 +3,9 @@ const groupMessages = require('./groupChatMessagesModel');
 
 const groupChatSchema = new mongoose.Schema({
     // name of the chat
-    chatName: {type: String, required: true}, 
+    chatName: {type: String, required: true},
     // list of members in the chat (username)
-    members: [ {type: String, require: true} ], 
+    members: [ { type: mongoose.Schema.Types.ObjectId, ref: 'Users' } ],
 
    
 }, {timestamps: true}); 

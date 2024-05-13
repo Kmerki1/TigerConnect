@@ -22,7 +22,7 @@ router.get('groupChats/:username', async (req, res) =>{
     // REMINDER: the members field is a LIST of usernames, not a single value. 
     const groupChats = await groupChat.find({ members: {$in: [username] } }); 
 
-    res.json(groupChat)
+    res.json(groupChats)
 }); 
 
 router.get('groupChats/:chatName', async (req, res) =>{ 
