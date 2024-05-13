@@ -10,6 +10,7 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 
 const GroupChats = () => {
   const navigate = useNavigate();
+
   const params = useParams();
   const [selectedChat, setSelectedChat] = useState(null);
   const [messages, setMessages] = useState([]);
@@ -21,43 +22,7 @@ const GroupChats = () => {
   const id = params.id || currentUserId;
   const isCurrentUser = id === currentUserId;
   const [currentUser, setCurrentUser] = useState(null);
-  const [groupChatData, setGroupChatData] = useState([
-    {
-      id: 1,
-      path: "/chat/javascript-enthusiasts",
-      avatarUrl: "https://via.placeholder.com/50",
-      name: "JavaScript Enthusiasts",
-      messages: [],
-    },
-    {
-      id: 2,
-      path: "/chat/react-developers",
-      avatarUrl: "https://via.placeholder.com/50",
-      name: "React Developers",
-      messages: [],
-    },
-    {
-      id: 3,
-      path: "/chat/frontend-coders",
-      avatarUrl: "https://via.placeholder.com/50",
-      name: "Frontend Coders",
-      messages: [],
-    },
-    {
-      id: 4,
-      path: "/chat/backend-wizards",
-      avatarUrl: "https://via.placeholder.com/50",
-      name: "Backend Wizards",
-      messages: [],
-    },
-    {
-      id: 5,
-      path: "/chat/fullstack-masters",
-      avatarUrl: "https://via.placeholder.com/50",
-      name: "Fullstack Masters",
-      messages: [],
-    },
-  ]);
+  const [groupChatData, setGroupChatData] = useState([]);
 
   useEffect(() => {
     const fetchCurrentUser = async () => {
@@ -88,22 +53,12 @@ const GroupChats = () => {
     }
   }, [messages, selectedChat]);
 
-  const handleChatSelection = (chat) => {
-    setSelectedChat(chat);
-    // Load messages of the selected chat
-    setMessages(chat.messages);
-  };
-
-  const handleInputChange = (event) => {
-    setInputMessage(event.target.value);
-  };
-
-  const handleSendMessage = async () => {
-    if (inputMessage.trim() !== "") {
+  useEffect(() => {
+    const fetchGroupChatsForUser = async () => {
+      const token = getToken();
       try {
-        const token = getToken();
-        const response = await fetch(`${CONFIG.API_URL}/users/${id}`, {
-          method: "GET",
+        console.log(currentUserId)
+        const response = await fetch(`${CONFIG.API_URL}/groupChatsUser/${currentUserId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -111,18 +66,98 @@ const GroupChats = () => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-        const { displayName } = await response.json();
+        const chats = await response.json();
+        console.log(chats)
+        setGroupChatData(chats);
+      } catch (error) {
+        console.error("Failed to fetch group chats for user:", error.message);
+      }
+    };
 
-        const newMessage = {
-          user: displayName,
-          content: inputMessage,
-        };
-        setMessages([...messages, newMessage]);
+    if (currentUserId) {
+      fetchGroupChatsForUser();
+    }
+  }, [currentUserId]); // This effect depends on the currentUserId
+
+console.log('test')
+
+  const handleSendMessage = () => {
+  const sendMessage = async () => {
+    console.log(inputMessage.trim());
+    if (inputMessage.trim() !== "") {
+      try {
+        const token = getToken();
+        if (!currentUser || !selectedChat) {
+          console.error("Current user or selected chat is not defined.");
+          return;
+        }
+        const response = await fetch(`${CONFIG.API_URL}/group/${selectedChat.chatName}/addMessages`, {
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            senderDisplayName: currentUser.displayName,
+            message: inputMessage
+          }),
+        });
+        if (!response.ok) {
+          const errorDetails = await response.json();
+          console.error("HTTP Error Response:", errorDetails);
+          throw new Error(`HTTP error! Status: ${response.status}, Details: ${errorDetails}`);
+        }
+        const newMessage = await response.json();
+        setMessages(prevMessages => [...prevMessages, newMessage]);
         setInputMessage("");
       } catch (error) {
-        console.error("Error fetching user name:", error.message);
+        console.error("Error sending message:", error.message);
       }
     }
+  }
+  sendMessage().then(() => fetchMessages())
+  };
+console.log(messages)
+  const fetchMessages = async () => {
+    const token = getToken();
+    try {
+      const response = await fetch(`${CONFIG.API_URL}/group/${selectedChat.chatName}/getMessages`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (!response.ok) {
+        throw new Error(`Failed to fetch messages with status: ${response.status}`);
+      }
+      const chatMessages = await response.json();
+      setMessages(chatMessages);
+    } catch (error) {
+      console.error("Failed to fetch messages:", error.message);
+    }
+  }
+
+
+  const handleChatSelection = async (chat) => {
+    setSelectedChat(chat);
+    const token = getToken();
+    const response = await fetch(`${CONFIG.API_URL}/group/${chat.chatName}/getMessages`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (response.ok) {
+      const chatMessages = await response.json();
+      setMessages(chatMessages);
+    } else {
+      console.error(`Failed to fetch messages for ${chat.name}`);
+    }
+  };
+
+  const handleInputChange = (event) => {
+    setInputMessage(event.target.value);
   };
 
   const handleCreateGroupChat = () => {
@@ -133,19 +168,31 @@ const GroupChats = () => {
     setShowPopup(false);
   };
 
-  const handleAddGroupChat = () => {
+  const handleAddGroupChat = async () => {
+    const token = getToken();
     if (newChatName.trim() !== "") {
-      const newGroupChat = {
-        id: groupChatData.length + 1,
-        path: `/chat/${newChatName.toLowerCase().replace(/\s+/g, "-")}`,
-        avatarUrl: "https://via.placeholder.com/50",
-        name: newChatName,
-        messages: [],
-      };
-
-      // Add new group chat to the list
-      setGroupChatData([...groupChatData, newGroupChat]);
-      setShowPopup(false);
+      try {
+        const response = await fetch(`${CONFIG.API_URL}/groupchats`, {
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            chatName: newChatName,
+            members: [getUserId()] // assuming the creator is the first member
+          })
+        });
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const newGroupChat = await response.json();
+        setGroupChatData([...groupChatData, newGroupChat]);
+        setShowPopup(false);
+        setNewChatName("");
+      } catch (error) {
+        console.error("Failed to create group chat:", error.message);
+      }
     }
   };
 
@@ -171,9 +218,9 @@ const GroupChats = () => {
           />
         </h2>
         <ul>
-          {groupChatData.map((chat) => (
-            <li key={chat.id} onClick={() => handleChatSelection(chat)}>
-              {chat.name}{" "}
+          {groupChatData.map((chat, index) => (
+            <li key={index} onClick={() => handleChatSelection(chat)}>
+              {chat.chatName}{" "}
             </li>
           ))}
         </ul>
@@ -193,8 +240,8 @@ const GroupChats = () => {
                 <div className="message" key={index}>
                   <img src="https://via.placeholder.com/40" alt="User Avatar" />
                   <div className="message-content">
-                    <h4>{message.user}</h4>
-                    <p className="message__text">{message.content}</p>
+                    <h4>{message.senderDisplayName}</h4>
+                    <p className="message__text">{message.message}</p>
                   </div>
                 </div>
               ))}

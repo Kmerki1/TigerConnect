@@ -4,25 +4,6 @@ const groupMessage = require('../models/groupChatMessagesModel');
 const groupChat = require('../models/groupChatModel'); 
 
 // Add a message to a group chat
-router.post('/group/:chatName/addMessages', async (req, res) => {
-    
-    // see if the GC exists and if not return a 404 error to the user.
-    const groupChat = await groupChat.findOne({ chatname: req.params.chatName }); 
-    if(!groupChat){ 
-        return res.status(404).json({ message: 'No such group in DB' });
-    } 
-
-    const msg = new groupMessage({
-        chatName: req.params.chatName,
-        senderDisplayName: req.body.senderDisplayName, 
-        message: req.body,message
-    }); 
-
-    const newMsg = await msg.save();
-
-}); 
-
-
 
 
 // get all messages from a group chat

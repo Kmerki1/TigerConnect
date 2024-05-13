@@ -12,4 +12,4 @@ const groupChatSchema = new mongoose.Schema({
 
 const groupChat = mongoose.model('groupChat', groupChatSchema); 
 
-module.export = groupChat(); 
+module.exports = groupChat;
