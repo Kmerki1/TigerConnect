@@ -212,6 +212,12 @@ const GroupChats = () => {
 
   const handleDeleteChat = async (chatId) => {
     const token = getToken();
+
+    const confirmed = window.confirm("Are you sure you want to delete this group chat?");
+    if (!confirmed) {
+      return;
+    }
+
     try {
         const response = await fetch(`${CONFIG.API_URL}/groupchats/${chatId}`, {
             method: "DELETE",
