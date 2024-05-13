@@ -38,6 +38,7 @@ function Post({ id, userId, name, tag, content, date, likes, replies, onDelete }
   const currentUserID = getUserId();
   const isLiked = likes.includes(currentUserID);
   const [liked, setLiked] = useState(isLiked);
+  const [likeCount, setLikeCount] = useState(likes.length);
   const [animate, setAnimate] = useState(false);
 
   const handleLike = async () => {
@@ -63,6 +64,7 @@ function Post({ id, userId, name, tag, content, date, likes, replies, onDelete }
       setTimeout(() => setAnimate(false), 400);
     }
     setLiked((pre) => !pre);
+    setLikeCount((prevCount) => (liked ? prevCount - 1 : prevCount + 1));
   };
 
   const goToThread = () => {
@@ -128,7 +130,7 @@ function Post({ id, userId, name, tag, content, date, likes, replies, onDelete }
               >
                 {liked ? <FaHeart /> : <FaRegHeart />}
               </div>
-              <span className="likes">{formatLikes(likes)}</span>
+              <span className="likes">{likeCount}</span>
             </div>
           </IconContext.Provider>
 
