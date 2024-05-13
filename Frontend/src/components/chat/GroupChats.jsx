@@ -15,8 +15,8 @@ const GroupChats = () => {
   const [selectedChat, setSelectedChat] = useState(null);
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState("");
-  const [showPopup, setShowPopup] = useState(false); // State for controlling popup visibility
-  const [newChatName, setNewChatName] = useState(""); // State for new group chat name
+  const [showPopup, setShowPopup] = useState(false);
+  const [newChatName, setNewChatName] = useState("");
   const chatMessagesRef = useRef(null);
   const currentUserId = getUserId();
   const id = params.id || currentUserId;
@@ -57,17 +57,20 @@ const GroupChats = () => {
     const fetchGroupChatsForUser = async () => {
       const token = getToken();
       try {
-        console.log(currentUserId)
-        const response = await fetch(`${CONFIG.API_URL}/groupChatsUser/${currentUserId}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        console.log(currentUserId);
+        const response = await fetch(
+          `${CONFIG.API_URL}/groupChatsUser/${currentUserId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const chats = await response.json();
-        console.log(chats)
+        console.log(chats);
         setGroupChatData(chats);
       } catch (error) {
         console.error("Failed to fetch group chats for user:", error.message);
@@ -79,74 +82,85 @@ const GroupChats = () => {
     }
   }, [currentUserId]); // This effect depends on the currentUserId
 
-console.log('test')
+  console.log("test");
 
-  const handleSendMessage = () => {
-  const sendMessage = async () => {
-    console.log(inputMessage.trim());
-    if (inputMessage.trim() !== "") {
-      try {
+  const handleSendMessage = async () => {
+    try {
+      if (inputMessage.trim() !== "") {
         const token = getToken();
         if (!currentUser || !selectedChat) {
           console.error("Current user or selected chat is not defined.");
           return;
         }
-        const response = await fetch(`${CONFIG.API_URL}/group/${selectedChat.chatName}/addMessages`, {
-          method: "POST",
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            senderDisplayName: currentUser.displayName,
-            message: inputMessage
-          }),
-        });
+        const response = await fetch(
+          `${CONFIG.API_URL}/group/${selectedChat.chatName}/addMessages`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+              senderDisplayName: currentUser.displayName,
+              message: inputMessage,
+            }),
+          }
+        );
         if (!response.ok) {
           const errorDetails = await response.json();
           console.error("HTTP Error Response:", errorDetails);
-          throw new Error(`HTTP error! Status: ${response.status}, Details: ${errorDetails}`);
+          throw new Error(
+            `HTTP error! Status: ${response.status}, Details: ${errorDetails}`
+          );
         }
         const newMessage = await response.json();
-        setMessages(prevMessages => [...prevMessages, newMessage]);
+        setMessages((prevMessages) => [...prevMessages, newMessage]);
         setInputMessage("");
-      } catch (error) {
-        console.error("Error sending message:", error.message);
+
+        // Scroll to bottom after sending message
+        chatMessagesRef.current.scrollTop = chatMessagesRef.current.scrollHeight;
       }
+    } catch (error) {
+      console.error("Error sending message:", error.message);
     }
-  }
-  sendMessage().then(() => fetchMessages())
   };
-console.log(messages)
+  console.log(messages);
   const fetchMessages = async () => {
     const token = getToken();
     try {
-      const response = await fetch(`${CONFIG.API_URL}/group/${selectedChat.chatName}/getMessages`, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        `${CONFIG.API_URL}/group/${selectedChat.chatName}/getMessages`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       if (!response.ok) {
-        throw new Error(`Failed to fetch messages with status: ${response.status}`);
+        throw new Error(
+          `Failed to fetch messages with status: ${response.status}`
+        );
       }
       const chatMessages = await response.json();
       setMessages(chatMessages);
     } catch (error) {
       console.error("Failed to fetch messages:", error.message);
     }
-  }
-
+  };
 
   const handleChatSelection = async (chat) => {
     setSelectedChat(chat);
     const token = getToken();
-    const response = await fetch(`${CONFIG.API_URL}/group/${chat.chatName}/getMessages`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await fetch(
+      `${CONFIG.API_URL}/group/${chat.chatName}/getMessages`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
     if (response.ok) {
       const chatMessages = await response.json();
@@ -175,13 +189,13 @@ console.log(messages)
         const response = await fetch(`${CONFIG.API_URL}/groupchats`, {
           method: "POST",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
             chatName: newChatName,
-            members: [getUserId()] // assuming the creator is the first member
-          })
+            members: [getUserId()], // assuming the creator is the first member
+          }),
         });
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -196,15 +210,35 @@ console.log(messages)
     }
   };
 
-  const handleDeleteChat = (chatId) => {
-    const updatedChats = groupChatData.filter((chat) => chat.id !== chatId);
-    setGroupChatData(updatedChats);
-    setSelectedChat(null);
-    setMessages([]);
-  };
+  const handleDeleteChat = async (chatId) => {
+    const token = getToken();
+    try {
+        const response = await fetch(`${CONFIG.API_URL}/groupchats/${chatId}`, {
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const updatedChats = groupChatData.filter((chat) => chat._id !== chatId);
+        setGroupChatData(updatedChats);
+        setSelectedChat(null);
+        setMessages([]);
+    } catch (error) {
+        console.error("Error deleting chat:", error.message);
+    }
+};
 
   if (!currentUser) {
     return <div>Loading...</div>;
+  }
+
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      handleSendMessage();
+    }
   }
 
   return (
@@ -229,22 +263,27 @@ console.log(messages)
         {selectedChat ? (
           <>
             <div className="chat-header">
-              <h2>{selectedChat.name}</h2>{" "}
+              <h2>{selectedChat.chatName}</h2>{" "}
               <RiDeleteBin6Line
                 className="delete-icon"
-                onClick={() => handleDeleteChat(selectedChat.id)}
+                onClick={() => handleDeleteChat(selectedChat._id)}
               />
             </div>
-            <div className="chat-messages" ref={chatMessagesRef}>
-              {messages.map((message, index) => (
-                <div className="message" key={index}>
-                  <img src="https://via.placeholder.com/40" alt="User Avatar" />
-                  <div className="message-content">
-                    <h4>{message.senderDisplayName}</h4>
-                    <p className="message__text">{message.message}</p>
+            <div className="chat-messages-container">
+              <div className="chat-messages" ref={chatMessagesRef}>
+                {messages.map((message, index) => (
+                  <div className="message" key={index}>
+                    <img
+                      src="https://via.placeholder.com/40"
+                      alt="User Avatar"
+                    />
+                    <div className="message-content">
+                      <h4>{message.senderDisplayName}</h4>
+                      <p className="message__text">{message.message}</p>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
             <div className="chat-input">
               <input
@@ -252,6 +291,7 @@ console.log(messages)
                 placeholder="Type your message..."
                 value={inputMessage}
                 onChange={handleInputChange}
+                onKeyPress={handleKeyPress}
               />
               <button className="btn" onClick={handleSendMessage}>
                 Send

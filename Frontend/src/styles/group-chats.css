@@ -128,3 +128,39 @@ group-chat-container {
   margin-left: 5px;
   color: #ff6347; /* Red color */
 }
+
+.chat-messages-container {
+  height: 250px; /* Set your desired fixed height */
+  overflow-y: auto;
+}
+
+.chat-messages {
+  max-height: 100%;
+  overflow-y: auto;
+}
+
+.message {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.message img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.message-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.message h4 {
+  margin: 0;
+}
+
+.message__text {
+  margin: 0;
+}
