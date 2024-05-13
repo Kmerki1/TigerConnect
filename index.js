@@ -6,8 +6,11 @@ const cors = require('cors');
 const userRoutes = require('./routes/userRoute');
 const groupChatRoutes = require('./routes/groupChatRoute');
 const app = express();
+const options = {//options for cor to use when checking request validity
+    origin: * //wildcard
+}
+app.use(cors(options)); //was just cors()
 
-app.use(cors());
 app.use(express.json()); 
 
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
