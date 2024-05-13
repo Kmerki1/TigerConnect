@@ -101,7 +101,25 @@ function Profile() {
     fetchPosts();
   }, []);
 
-
+  const handleDeletePost = async (postId) => {
+    // try {
+    //   console.log("Deleting post with ID:", postId);
+    //   const token = getToken();
+    //   const response = await fetch(`${CONFIG.API_URL}/posts/${postId}`, {
+    //     method: 'DELETE',
+    //     headers: {
+    //       'Authorization': `Bearer ${token}`
+    //     }
+    //   });
+    //   if (!response.ok) {
+    //     const errorData = await response.text();
+    //     throw new Error(errorData.message);
+    //   }
+    //   setPostsData(prevPostsData => prevPostsData.filter(post => post.id !== postId));
+    // } catch (error) {
+    //   console.error('Error deleting post:', error);
+    // }
+  };
 
   const toSettings = () => {
     navigate("/settings");
@@ -154,6 +172,7 @@ function Profile() {
               content={post.content}
               date={post.time}
               likes={post.likes}
+              onDelete={() => handleDeletePost(post.id)}
             />
             {index < postsData.length - 1 && <Separator />}
           </div>

@@ -27,6 +27,10 @@
     margin: 0;
 }
 
+.delete-button {
+    margin-left: auto;
+}
+
 .post-footer {
     display: flex;
     align-items: center;
