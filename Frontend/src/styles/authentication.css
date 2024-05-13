@@ -35,6 +35,6 @@ input[type='submit']:hover {
     background-color: #55471c;
 }
 
-p {
+.container p {
     text-align: center;
 }

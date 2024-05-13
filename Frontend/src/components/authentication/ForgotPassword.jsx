@@ -14,8 +14,9 @@ function ForgotPassword() {
             <form id="forgot_password_form" onSubmit={handleSubmit}>
                 <label htmlFor="towson_email">Towson Email</label>
                 <input type="email" id="towson_email" name="Towson Email" required />
-                <input type="submit" id="submit" name="submit"/>
+                <input type="submit" id="submit" name="submit" value="Submit"/>
             </form>
+            <p><a href="/login">Go Back</a></p>
         </div>
     );
 }
